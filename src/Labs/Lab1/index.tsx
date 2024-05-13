@@ -193,7 +193,7 @@ _Starship-gap2.jpg"
                 <br/>
                 Loading a local image:
                 <br/>
-                <img id="wd-teslabot" src="images/teslabot.jpg" height="200px"/>
+                <img id="wd-teslabot" src="/images/teslabot.jpg" height="250px"/>
             </div>
 
             <div id="wd-forms">

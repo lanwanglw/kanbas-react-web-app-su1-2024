@@ -4,13 +4,13 @@ export default function AssignmentEditor() {
     let { id } = useParams();
 
     if (id !== "1") {
-        return <div>Not Available</div>;
+        return <div>Not available now. Please try again later.</div>;
     }
 
     return (
         <div id="wd-assignments-editor" style={{ padding: '20px' }}>
             <div style={{marginBottom: '20px'}}>
-                <label htmlFor="wd-name">Assignment Name</label>
+                <label htmlFor="wd-name"><strong>Assignment Name</strong></label>
                 <input id="wd-name" value="A1 - ENV + HTML" readOnly style={{ width: '100%' }} />
             </div>
 
