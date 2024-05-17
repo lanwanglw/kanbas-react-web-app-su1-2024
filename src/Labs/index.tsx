@@ -8,7 +8,8 @@ import { Route, Routes, Navigate } from "react-router-dom";
 export default function Labs() {
     return (
         <div id="wd-labs">
-            <h1>Labs - Lan Wang</h1>
+            <h1>Lan Wang</h1>
+            <h1>Labs</h1>
             <h2>Section Number: 01</h2>
             <TOC />
             <Routes>
