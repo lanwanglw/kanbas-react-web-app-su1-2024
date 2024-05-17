@@ -93,8 +93,8 @@ export default function Lab1() {
                 </ul>
             </div>
 
-            <div id="wd-tables">
-                <h4>Table Tag</h4>
+            <div id="wd-quizzes">
+                <h4>Quizzes</h4>
                 <table border={1} width="100%">
                     <thead>
                     <tr>
@@ -122,12 +122,6 @@ export default function Lab1() {
                         <td>JavaScript</td>
                         <td>2/17/21</td>
                         <td>95</td>
-                    </tr>
-                    <tr>
-                        <td>Q4</td>
-                        <td>React</td>
-                        <td>2/24/21</td>
-                        <td>92</td>
                     </tr>
                     <tr>
                         <td>Q4</td>
@@ -179,6 +173,16 @@ export default function Lab1() {
                     </tr>
                     </tfoot>
                 </table>
+            </div>
+
+            <div id="wd-exams">
+                <h4>Exams</h4>
+                {/* Add exam content here */}
+            </div>
+
+            <div id="wd-projects">
+                <h4>Projects</h4>
+                {/* Add project content here */}
             </div>
 
             <div id="wd-images">
@@ -305,16 +309,18 @@ anim id est laborum.</textarea>
 
             <div id="wd-anchor-tags">
                 <h4>Anchor Tag</h4>
-                Please
-                <a href="https://www.lipsum.com"> click here </a>
-                to get dummy text<br/>
-                Visit the
-                <a href="https://github.com/lanwanglw/kanbas-react-web-app-su1-2024.git"> GitHub repository </a>
-                for this course.
+                <div>
+                    Please
+                    <a href="https://www.lipsum.com" id="dummy-link"> click here </a>
+                    to get dummy text<br/>
+                </div>
+                <div>
+                    Visit the
+                    <a href="https://github.com/lanwanglw/kanbas-react-web-app-su1-2024.git"
+                       id="github-link"> GitHub repository </a>
+                    for this course.
+                </div>
             </div>
         </div>
-
-
-    )
-        ;
+    );
 }

@@ -6,12 +6,12 @@ export default function KanbasNavigation() {
                     <img src="/images/NEU.png" alt="Northeastern University" width="100" />
                 </a>
             </li>
-            <li><a className="wd-link" href="#/Kanbas/Account">Account</a></li>
-            <li><a className="wd-link" href="#/Kanbas/Dashboard">Dashboard</a></li>
-            <li><a className="wd-link" href="#/Kanbas/Courses">Courses</a></li>
-            <li><a className="wd-link" href="#/Kanbas/Calendar">Calendar</a></li>
-            <li><a className="wd-link" href="#/Kanbas/Inbox">Inbox</a></li>
-            <li><a className="wd-link" href="#/Labs">Labs</a></li>
+            <li><a className="wd-link" href="#/Kanbas/Account" id="kanbas-account-link">Account</a></li>
+            <li><a className="wd-link" href="#/Kanbas/Dashboard" id="kanbas-dashboard-link">Dashboard</a></li>
+            <li><a className="wd-link" href="#/Kanbas/Courses" id="kanbas-courses-link">Courses</a></li>
+            <li><a className="wd-link" href="#/Kanbas/Calendar" id="kanbas-calendar-link">Calendar</a></li>
+            <li><a className="wd-link" href="#/Kanbas/Inbox" id="kanbas-inbox-link">Inbox</a></li>
+            <li><a className="wd-link" href="#/Labs" id="kanbas-labs-link">Labs</a></li>
         </ul>
     );
 }
