@@ -2,10 +2,10 @@ import { MdDoNotDisturbAlt } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
 import { BiImport } from "react-icons/bi";
 import { LiaFileImportSolid } from "react-icons/lia";
-import { AiOutlineHome } from "react-icons/ai";
-import { MdStream } from "react-icons/md";
+import { AiOutlineHome, AiOutlineBell } from "react-icons/ai";
 import { FiBarChart2 } from "react-icons/fi";
-import { IoNotificationsOutline } from "react-icons/io5";
+import { AiOutlineBarChart } from "react-icons/ai";
+import { FaBullhorn } from "react-icons/fa";
 
 export default function CourseStatus() {
     return (
@@ -39,11 +39,11 @@ export default function CourseStatus() {
                 Choose Home Page
             </button>
             <button className="btn btn-lg btn-secondary w-100 mt-1 text-start">
-                <MdStream className="me-2 fs-5" />
-                View Course Stream
+                <AiOutlineBarChart className="me-2 fs-5" />
+                View Course Screen
             </button>
             <button className="btn btn-lg btn-secondary w-100 mt-1 text-start">
-                <MdStream className="me-2 fs-5" />
+                <FaBullhorn className="me-2 fs-5" />
                 New Announcement
             </button>
             <button className="btn btn-lg btn-secondary w-100 mt-1 text-start">
@@ -51,7 +51,7 @@ export default function CourseStatus() {
                 New Analytics
             </button>
             <button className="btn btn-lg btn-secondary w-100 mt-1 text-start">
-                <IoNotificationsOutline className="me-2 fs-5" />
+                <AiOutlineBell className="me-2 fs-5" />
                 View Course Notifications
             </button>
         </div>

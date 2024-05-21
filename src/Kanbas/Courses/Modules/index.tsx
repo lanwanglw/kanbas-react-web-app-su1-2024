@@ -1,8 +1,11 @@
 import React from 'react';
 import ModulesControls from "./ModulesControls";
 import { BsGripVertical } from "react-icons/bs";
+import { FiPlus } from "react-icons/fi";
 import ModuleControlButtons from "./ModuleControlButtons";
 import LessonControlButtons from "./LessonControlButtons";
+import GreenCheckmark from "./GreenCheckmark";
+import { IoEllipsisVertical } from "react-icons/io5";
 
 export default function Modules() {
     return (
@@ -11,10 +14,19 @@ export default function Modules() {
             <ul id="wd-modules" className="list-group rounded-0">
                 {/* Module 1 */}
                 <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
-                    <div className="wd-title p-3 ps-2 bg-secondary">
-                        <BsGripVertical className="me-2 fs-3" />
-                        Week 1, Lecture 1 - Course Introduction, Syllabus, Agenda
-                        <ModuleControlButtons />
+                    <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center">
+                        <div className="d-flex align-items-center">
+                            <BsGripVertical className="me-2 fs-3" />
+                            Week 1, Lecture 1 - Course Introduction, Syllabus, Agenda
+                            <ModuleControlButtons />
+                        </div>
+                        <div className="d-flex align-items-center">
+                            <GreenCheckmark />
+                            <button className="btn btn-secondary btn-sm me-2">
+                                <FiPlus className="fs-6"/>
+                            </button>
+                            <IoEllipsisVertical className="fs-4" />
+                        </div>
                     </div>
                     <ul className="wd-lessons list-group rounded-0">
                         <li className="wd-lesson list-group-item p-3 ps-1">
@@ -59,29 +71,38 @@ export default function Modules() {
 
                 {/* Module 2 */}
                 <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
-                    <div className="wd-title p-3 ps-2 bg-secondary">
-                        <BsGripVertical className="me-2 fs-3" />
-                        Week 1, Lecture 2 - Formatting User Interfaces with HTML
-                        <ModuleControlButtons />
+                    <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center">
+                        <div className="d-flex align-items-center">
+                            <BsGripVertical className="me-2 fs-3"/>
+                            Week 1, Lecture 2 - Formatting User Interfaces with HTML
+                            <ModuleControlButtons/>
+                        </div>
+                        <div className="d-flex align-items-center">
+                            <GreenCheckmark/>
+                            <button className="btn btn-secondary btn-sm me-2">
+                                <FiPlus className="fs-6"/>
+                            </button>
+                            <IoEllipsisVertical className="fs-4"/>
+                        </div>
                     </div>
                     <ul className="wd-lessons list-group rounded-0">
                         <li className="wd-lesson list-group-item p-3 ps-1">
-                            <BsGripVertical className="me-2 fs-3" />
+                            <BsGripVertical className="me-2 fs-3"/>
                             LEARNING OBJECTIVES
-                            <LessonControlButtons />
+                            <LessonControlButtons/>
                         </li>
                         <li className="wd-lesson list-group-item p-3 ps-1">
-                            <BsGripVertical className="me-2 fs-3" />
+                            <BsGripVertical className="me-2 fs-3"/>
                             Learn how to create user interfaces with HTML
-                            <LessonControlButtons />
+                            <LessonControlButtons/>
                         </li>
                         <li className="wd-lesson list-group-item p-3 ps-1">
-                            <BsGripVertical className="me-2 fs-3" />
+                            <BsGripVertical className="me-2 fs-3"/>
                             Deploy the assignment to Netlify
-                            <LessonControlButtons />
+                            <LessonControlButtons/>
                         </li>
                         <li className="wd-lesson list-group-item p-3 ps-1">
-                            <BsGripVertical className="me-2 fs-3" />
+                            <BsGripVertical className="me-2 fs-3"/>
                             SLIDES
                             <ul className="wd-content">
                                 <li className="wd-content-item">Introduction to HTML and the DOM</li>
@@ -98,10 +119,19 @@ export default function Modules() {
 
                 {/* Module 3 */}
                 <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
-                    <div className="wd-title p-3 ps-2 bg-secondary">
-                        <BsGripVertical className="me-2 fs-3" />
-                        Week 2, Lecture 3 - Styling User Interfaces with CSS
-                        <ModuleControlButtons />
+                    <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center">
+                        <div className="d-flex align-items-center">
+                            <BsGripVertical className="me-2 fs-3"/>
+                            Week 2, Lecture 3 - Styling User Interfaces with CSS
+                            <ModuleControlButtons/>
+                        </div>
+                        <div className="d-flex align-items-center">
+                            <GreenCheckmark/>
+                            <button className="btn btn-secondary btn-sm me-2">
+                                <FiPlus className="fs-6"/>
+                            </button>
+                            <IoEllipsisVertical className="fs-4"/>
+                        </div>
                     </div>
                     <ul className="wd-lessons list-group rounded-0">
                         <li className="wd-lesson list-group-item p-3 ps-1">
@@ -136,7 +166,7 @@ export default function Modules() {
                         </li>
                         <li className="wd-lesson list-group-item p-3 ps-1">
                             <BsGripVertical className="me-2 fs-3"/>
-                            LESSON 1 - Full Stack Developer - Chapter 3 - Styling User Interfaces With Cascading Style Sheets
+                            LESSON 1
                             <LessonControlButtons/>
                         </li>
                         <li className="wd-lesson list-group-item p-3 ps-1">
