@@ -1,37 +1,107 @@
+import React from 'react';
+import { Link } from "react-router-dom";
+import { MdSearch, MdCheckCircle, MdDragIndicator, MdMoreVert, MdAdd } from "react-icons/md";
+import { FaPlus } from "react-icons/fa";
+import { VscNotebook } from "react-icons/vsc";
+
 export default function Assignments() {
     return (
-        <div id="wd-assignments">
-            <input id="wd-search-assignment"
-                   placeholder="Search for Assignments" />
-            <button id="wd-add-assignment-group">+ Group</button>
-            <button id="wd-add-assignment">+ Assignment</button>
-            <h3 id="wd-assignments-title">
-                ASSIGNMENTS 40% of Total <button>+</button>
-            </h3>
-            <ul id="wd-assignment-list">
-                <li className="wd-assignment-list-item">
-                    <a className="wd-assignment-link"
-                       href="#/Kanbas/Courses/1234/Assignments/1">
-                        A1 - ENV + HTML<br/>
-                        Multiple Modules | <strong>Not available until</strong> May 6 at 12:00am |
-                        <br/><strong> Due </strong> May 13 at 11:59pm | 100 pts
-                    </a>
+        <div id="wd-assignments" className="container mt-4">
+            <div className="d-flex justify-content-between mb-3">
+                <div className="input-group" style={{ width: "300px" }}>
+                    <span className="input-group-text">
+                        <MdSearch />
+                    </span>
+                    <input
+                        id="wd-search-assignment"
+                        className="form-control"
+                        placeholder="Search..."
+                    />
+                </div>
+                <div className="d-flex">
+                    <button className="btn btn-secondary me-2 d-flex align-items-center" id="wd-add-assignment-group">
+                        <FaPlus className="me-1" /> Group
+                    </button>
+                    <button className="btn btn-danger d-flex align-items-center" id="wd-add-assignment">
+                        <FaPlus className="me-1" /> Assignment
+                    </button>
+                </div>
+            </div>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+                <div className="d-flex align-items-center">
+                    <MdDragIndicator className="me-2" />
+                    <h3 id="wd-assignments-title" className="mb-0">
+                        ASSIGNMENTS
+                    </h3>
+                </div>
+                <div className="d-flex align-items-center">
+                    <span className="badge bg-secondary me-2">40% of Total</span>
+                    <button className="btn btn-outline-secondary d-flex align-items-center">
+                        <MdAdd className="me-1" />
+                    </button>
+                    <MdMoreVert className="ms-2" />
+                </div>
+            </div>
+            <ul id="wd-assignment-list" className="list-group">
+                <li className="list-group-item d-flex justify-content-between align-items-center" style={{ borderLeft: "4px solid green" }}>
+                    <div className="d-flex align-items-center">
+                        <MdDragIndicator className="me-2" />
+                        <VscNotebook className="me-2 text-success" />
+                        <div>
+                            <Link className="wd-assignment-link text-decoration-none fw-bold text-black" to="/Kanbas/Courses/Assignments/1">
+                                A1
+                            </Link>
+                            <div className="small">
+                                <span className="text-danger">Multiple Modules</span>
+                                <span className="text-muted"> | <strong>Not available until</strong> May 6 at 12:00am</span>
+                            </div>
+                            <div className="small"><strong>Due</strong> May 13 at 11:59pm | 100 pts</div>
+                        </div>
+                    </div>
+                    <div className="d-flex align-items-center">
+                        <MdCheckCircle className="text-success" />
+                        <MdMoreVert className="ms-2" />
+                    </div>
                 </li>
-                <li className="wd-assignment-list-item">
-                    <a className="wd-assignment-link"
-                       href="#/Kanbas/Courses/1234/Assignments/2">
-                        A2 - CSS + BOOTSTRAP Multiple Modules <br/>
-                        Multiple Modules | <strong>Not available until</strong> May 13 at 12:00am |
-                        <br/><strong> Due </strong> May 20 at 11:59pm | 100 pts
-                    </a>
+                <li className="list-group-item d-flex justify-content-between align-items-center" style={{ borderLeft: "4px solid green" }}>
+                    <div className="d-flex align-items-center">
+                        <MdDragIndicator className="me-2" />
+                        <VscNotebook className="me-2 text-success" />
+                        <div>
+                            <Link className="wd-assignment-link text-decoration-none fw-bold text-black" to="/Kanbas/Courses/Assignments/1">
+                                A2
+                            </Link>
+                            <div className="small">
+                                <span className="text-danger">Multiple Modules</span>
+                                <span className="text-muted"> | <strong>Not available until</strong> May 13 at 12:00am</span>
+                            </div>
+                            <div className="small"><strong>Due</strong> May 20 at 11:59pm | 100 pts</div>
+                        </div>
+                    </div>
+                    <div className="d-flex align-items-center">
+                        <MdCheckCircle className="text-success" />
+                        <MdMoreVert className="ms-2" />
+                    </div>
                 </li>
-                <li className="wd-assignment-list-item">
-                    <a className="wd-assignment-link"
-                       href="#/Kanbas/Courses/1234/Assignments/3">
-                        A3 - JAVASCRIPT + REACT
-                        Multiple Modules | <strong>Not available until</strong> May 20 at 12:00am |
-                        <br/><strong> Due </strong> May 27 at 11:59pm | 100 pts
-                    </a>
+                <li className="list-group-item d-flex justify-content-between align-items-center" style={{ borderLeft: "4px solid green" }}>
+                    <div className="d-flex align-items-center">
+                        <MdDragIndicator className="me-2" />
+                        <VscNotebook className="me-2 text-success" />
+                        <div>
+                            <Link className="wd-assignment-link text-decoration-none fw-bold text-black" to="/Kanbas/Courses/Assignments/1">
+                                A3
+                            </Link>
+                            <div className="small">
+                                <span className="text-danger">Multiple Modules</span>
+                                <span className="text-muted"> | <strong>Not available until</strong> May 20 at 12:00am</span>
+                            </div>
+                            <div className="small"><strong>Due</strong> May 27 at 11:59pm | 100 pts</div>
+                        </div>
+                    </div>
+                    <div className="d-flex align-items-center">
+                        <MdCheckCircle className="text-success" />
+                        <MdMoreVert className="ms-2" />
+                    </div>
                 </li>
             </ul>
         </div>
