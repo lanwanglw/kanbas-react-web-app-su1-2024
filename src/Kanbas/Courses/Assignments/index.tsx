@@ -6,9 +6,15 @@ import { VscNotebook } from "react-icons/vsc";
 import { useParams } from "react-router";
 import { assignments } from "../../Database";
 
+interface Assignment {
+    _id: string;
+    course: string;
+    title: string;
+}
+
 export default function Assignments() {
     const { courseId } = useParams<{ courseId: string }>();
-    const courseAssignments = assignments.filter(assignment => assignment.course === courseId);
+    const courseAssignments: Assignment[] = assignments.filter((assignment: Assignment) => assignment.course === courseId);
 
     return (
         <div id="wd-assignments" className="container mt-4">

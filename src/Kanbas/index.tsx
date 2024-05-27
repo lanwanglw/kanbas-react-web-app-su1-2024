@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
 import KanbasNavigation from "./Navigation";
 import Dashboard from "./Dashboard";
@@ -10,7 +9,7 @@ export default function Kanbas() {
         <div id="wd-kanbas" className="h-100">
             <div className="d-flex h-100">
                 <div className="d-none d-md-block bg-black">
-                    <KanbasNavigation/>
+                    <KanbasNavigation />
                 </div>
                 <div className="flex-fill p-4">
                     <Routes>
@@ -22,6 +21,7 @@ export default function Kanbas() {
                         <Route path="Inbox" element={<h1>Inbox</h1>} />
                     </Routes>
                 </div>
-          </div>
-    </div>
-);}
+            </div>
+        </div>
+    );
+}
