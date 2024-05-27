@@ -3,8 +3,13 @@ import { Link } from "react-router-dom";
 import { MdSearch, MdCheckCircle, MdDragIndicator, MdMoreVert, MdAdd } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
 import { VscNotebook } from "react-icons/vsc";
+import { useParams } from "react-router";
+import { assignments } from "../../Database";
 
 export default function Assignments() {
+    const { courseId } = useParams<{ courseId: string }>();
+    const courseAssignments = assignments.filter(assignment => assignment.course === courseId);
+
     return (
         <div id="wd-assignments" className="container mt-4">
             <div className="d-flex justify-content-between mb-3">
@@ -43,66 +48,28 @@ export default function Assignments() {
                 </div>
             </div>
             <ul id="wd-assignment-list" className="list-group">
-                <li className="list-group-item d-flex justify-content-between align-items-center" style={{ borderLeft: "4px solid green" }}>
-                    <div className="d-flex align-items-center">
-                        <MdDragIndicator className="me-2" />
-                        <VscNotebook className="me-2 text-success" />
-                        <div>
-                            <Link className="wd-assignment-link text-decoration-none fw-bold text-black" to="/Kanbas/Courses/Assignments/1">
-                                A1
-                            </Link>
-                            <div className="small">
-                                <span className="text-danger">Multiple Modules</span>
-                                <span className="text-muted"> | <strong>Not available until</strong> May 6 at 12:00am</span>
+                {courseAssignments.map((assignment) => (
+                    <li key={assignment._id} className="list-group-item d-flex justify-content-between align-items-center" style={{ borderLeft: "4px solid green" }}>
+                        <div className="d-flex align-items-center">
+                            <MdDragIndicator className="me-2" />
+                            <VscNotebook className="me-2 text-success" />
+                            <div>
+                                <Link className="wd-assignment-link text-decoration-none fw-bold text-black" to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`}>
+                                    {assignment.title}
+                                </Link>
+                                <div className="small">
+                                    <span className="text-danger">Multiple Modules</span>
+                                    <span className="text-muted"> | <strong>Not available until</strong> May 6 at 12:00am</span>
+                                </div>
+                                <div className="small"><strong>Due</strong> May 13 at 11:59pm | 100 pts</div>
                             </div>
-                            <div className="small"><strong>Due</strong> May 13 at 11:59pm | 100 pts</div>
                         </div>
-                    </div>
-                    <div className="d-flex align-items-center">
-                        <MdCheckCircle className="text-success" />
-                        <MdMoreVert className="ms-2" />
-                    </div>
-                </li>
-                <li className="list-group-item d-flex justify-content-between align-items-center" style={{ borderLeft: "4px solid green" }}>
-                    <div className="d-flex align-items-center">
-                        <MdDragIndicator className="me-2" />
-                        <VscNotebook className="me-2 text-success" />
-                        <div>
-                            <Link className="wd-assignment-link text-decoration-none fw-bold text-black" to="/Kanbas/Courses/Assignments/1">
-                                A2
-                            </Link>
-                            <div className="small">
-                                <span className="text-danger">Multiple Modules</span>
-                                <span className="text-muted"> | <strong>Not available until</strong> May 13 at 12:00am</span>
-                            </div>
-                            <div className="small"><strong>Due</strong> May 20 at 11:59pm | 100 pts</div>
+                        <div className="d-flex align-items-center">
+                            <MdCheckCircle className="text-success" />
+                            <MdMoreVert className="ms-2" />
                         </div>
-                    </div>
-                    <div className="d-flex align-items-center">
-                        <MdCheckCircle className="text-success" />
-                        <MdMoreVert className="ms-2" />
-                    </div>
-                </li>
-                <li className="list-group-item d-flex justify-content-between align-items-center" style={{ borderLeft: "4px solid green" }}>
-                    <div className="d-flex align-items-center">
-                        <MdDragIndicator className="me-2" />
-                        <VscNotebook className="me-2 text-success" />
-                        <div>
-                            <Link className="wd-assignment-link text-decoration-none fw-bold text-black" to="/Kanbas/Courses/Assignments/1">
-                                A3
-                            </Link>
-                            <div className="small">
-                                <span className="text-danger">Multiple Modules</span>
-                                <span className="text-muted"> | <strong>Not available until</strong> May 20 at 12:00am</span>
-                            </div>
-                            <div className="small"><strong>Due</strong> May 27 at 11:59pm | 100 pts</div>
-                        </div>
-                    </div>
-                    <div className="d-flex align-items-center">
-                        <MdCheckCircle className="text-success" />
-                        <MdMoreVert className="ms-2" />
-                    </div>
-                </li>
+                    </li>
+                ))}
             </ul>
         </div>
     );
