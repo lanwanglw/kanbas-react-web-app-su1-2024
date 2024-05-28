@@ -14,7 +14,7 @@ export default function App() {
                       <Route path="/" element={<Navigate to="Labs" />} />
                       <Route path="/Labs/*" element={<Labs />} />
                       <Route path="/Kanbas/*" element={<Kanbas />} />
-                      <Route path="/Kanbas/Courses/*" element={<Courses />} />
+                      <Route path="/Kanbas/Courses/:cid/*" element={<Courses />} />
                   </Routes>
               </div>
           </div>

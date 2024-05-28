@@ -17,8 +17,8 @@ export default function KanbasNavigation() {
         <div id="wd-kanbas-navigation" className="list-group rounded-0">
             <span style={{ color: "white" }}>{pathname}</span>
             <a id="wd-account-link" target="_blank"
-                     href="https://www.northeastern.edu/"
-                     className="list-group-item bg-black border-0">
+               href="https://www.northeastern.edu/"
+               className="list-group-item bg-black border-0">
                 <img src="/images/NEU.png" width="75px" alt="Northeastern University" />
             </a>
             <Link key="/Kanbas/Account" to="/Kanbas/Account" className={`list-group-item text-center border-0 bg-black
@@ -30,7 +30,7 @@ export default function KanbasNavigation() {
             {links.map((link) => (
                 <Link key={link.path} to={link.path} className={`list-group-item bg-black text-center border-0
                       ${pathname.includes(link.label) ? "text-danger bg-white" : "text-white bg-black"}`}>
-                    {link.icon({ className: "fs-1 text-danger"})}
+                    <link.icon className="fs-1 text-danger" />
                     <br />
                     {link.label}
                 </Link>

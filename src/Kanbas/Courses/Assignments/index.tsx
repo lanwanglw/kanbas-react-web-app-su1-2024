@@ -6,15 +6,9 @@ import { VscNotebook } from "react-icons/vsc";
 import { useParams } from "react-router";
 import { assignments } from "../../Database";
 
-interface Assignment {
-    _id: string;
-    course: string;
-    title: string;
-}
-
 export default function Assignments() {
-    const { courseId } = useParams<{ courseId: string }>();
-    const courseAssignments: Assignment[] = assignments.filter((assignment: Assignment) => assignment.course === courseId);
+    const { cid } = useParams<{ cid: string }>();
+    const courseAssignments = assignments.filter((assignment: { course: string }) => assignment.course === cid);
 
     return (
         <div id="wd-assignments" className="container mt-4">
@@ -54,20 +48,20 @@ export default function Assignments() {
                 </div>
             </div>
             <ul id="wd-assignment-list" className="list-group">
-                {courseAssignments.map((assignment) => (
+                {courseAssignments.map((assignment: { _id: string, title: string, points: number, due_date: string, available_date: string }) => (
                     <li key={assignment._id} className="list-group-item d-flex justify-content-between align-items-center" style={{ borderLeft: "4px solid green" }}>
                         <div className="d-flex align-items-center">
                             <MdDragIndicator className="me-2" />
                             <VscNotebook className="me-2 text-success" />
                             <div>
-                                <Link className="wd-assignment-link text-decoration-none fw-bold text-black" to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`}>
+                                <Link className="wd-assignment-link text-decoration-none fw-bold text-black" to={`/Kanbas/Courses/Assignments/${assignment._id}`}>
                                     {assignment.title}
                                 </Link>
                                 <div className="small">
                                     <span className="text-danger">Multiple Modules</span>
-                                    <span className="text-muted"> | <strong>Not available until</strong> May 6 at 12:00am</span>
+                                    <span className="text-muted"> | <strong>Not available until</strong> {assignment.available_date}</span>
                                 </div>
-                                <div className="small"><strong>Due</strong> May 13 at 11:59pm | 100 pts</div>
+                                <div className="small"><strong>Due</strong> {assignment.due_date} | {assignment.points} pts</div>
                             </div>
                         </div>
                         <div className="d-flex align-items-center">

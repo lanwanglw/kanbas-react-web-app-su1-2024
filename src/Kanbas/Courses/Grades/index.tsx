@@ -1,9 +1,9 @@
 import React from 'react';
 import { Table, Form, Button, DropdownButton, Dropdown } from 'react-bootstrap';
 import { FaFileImport, FaFileExport, FaCog, FaSearch, FaChevronDown, FaFilter } from 'react-icons/fa';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useParams } from 'react-router';
 import { enrollments, users, assignments, grades } from '../../Database';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface User {
     _id: string;
@@ -16,15 +16,37 @@ interface User {
     role: string;
 }
 
+interface Enrollment {
+    _id: string;
+    user: string;
+    course: string;
+}
+
+interface Assignment {
+    _id: string;
+    title: string;
+    course: string;
+    points: number;
+}
+
+interface Grade {
+    _id: string;
+    student: string;
+    assignment: string;
+    grade: string;
+}
+
 export default function Grades() {
-    const { courseId } = useParams<{ courseId: string }>();
+    const { cid } = useParams<{ cid: string }>();
 
     const enrolledStudents: User[] = enrollments
-        .filter(enrollment => enrollment.course === courseId)
-        .map(enrollment => users.find(user => user._id === enrollment.user) as User)
+        .filter((enrollment: Enrollment) => enrollment.course === cid)
+        .map((enrollment: Enrollment) => {
+            return users.find((user: User) => user._id === enrollment.user);
+        })
         .filter((student): student is User => student !== undefined);
 
-    const courseAssignments = assignments.filter(assignment => assignment.course === courseId);
+    const courseAssignments = assignments.filter((assignment: Assignment) => assignment.course === cid);
 
     return (
         <div className="container-fluid">
@@ -71,21 +93,21 @@ export default function Grades() {
                     <thead>
                     <tr>
                         <th className="text-center">Student Name</th>
-                        {courseAssignments.map((assignment) => (
+                        {courseAssignments.map((assignment: Assignment) => (
                             <th key={assignment._id} className="text-center">
-                                {assignment.title}<br /><small>Out of 100</small>
+                                {assignment.title}<br /><small>Out of {assignment.points}</small>
                             </th>
                         ))}
                     </tr>
                     </thead>
                     <tbody>
-                    {enrolledStudents.map((student) => (
+                    {enrolledStudents.map((student: User) => (
                         <tr key={student._id}>
                             <td className="text-center text-danger">
                                 {student.firstName} {student.lastName}
                             </td>
-                            {courseAssignments.map((assignment) => {
-                                const grade = grades.find(g => g.assignment === assignment._id && g.student === student._id);
+                            {courseAssignments.map((assignment: Assignment) => {
+                                const grade = grades.find((g: Grade) => g.assignment === assignment._id && g.student === student._id);
                                 return (
                                     <td key={assignment._id} className="text-center">
                                         {grade ? `${grade.grade}%` : 'N/A'}

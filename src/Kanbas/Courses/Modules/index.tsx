@@ -9,6 +9,7 @@ import { IoEllipsisVertical } from "react-icons/io5";
 import { useParams } from "react-router";
 import { modules } from "../../Database";
 
+
 export interface Lesson {
     _id: string;
     name: string;
@@ -23,6 +24,7 @@ export interface Module {
     course: string;
     lessons?: Lesson[];
 }
+
 
 export default function Modules() {
     const { cid } = useParams<{ cid: string }>();
