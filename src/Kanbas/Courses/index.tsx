@@ -12,7 +12,7 @@ import { FaAlignJustify } from "react-icons/fa6";
 
 export default function Courses() {
     const { pathname } = useLocation();
-    const { cid} = useParams<{ cid: string }>();
+    const { cid } = useParams<{ cid: string }>();
     const course = courses.find((course) => course._id === cid);
     const links = ["Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades"];
 
@@ -38,7 +38,7 @@ export default function Courses() {
                                 <Route path="Piazza" element={<h1>Piazza</h1>} />
                                 <Route path="Zoom" element={<h1>Zoom</h1>} />
                                 <Route path="Assignments" element={<Assignments />} />
-                                <Route path="Assignments/:id" element={<AssignmentEditor />} />
+                                <Route path="/Courses/Assignments/:id/*" element={<AssignmentEditor />} />
                                 <Route path="Quizzes" element={<h1>Quizzes</h1>} />
                                 <Route path="Grades" element={<Grades />} />
                             </Routes>
