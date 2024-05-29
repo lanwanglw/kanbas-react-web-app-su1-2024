@@ -6,10 +6,10 @@ export default function AssignmentEditor() {
     const { cid, id } = useParams<{ cid: string, id: string }>();
     const assignment = assignments.find((assignment) => assignment._id === id);
 
-    if (!assignment) {
+    if(!assignment) {
         return <div>Assignment not found</div>;
     }
-
+    
     return (
         <div id="wd-assignments-editor" className="container mt-4">
             <div className="mb-3">

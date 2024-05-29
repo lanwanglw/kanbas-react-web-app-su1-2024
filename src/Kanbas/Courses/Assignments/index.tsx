@@ -54,7 +54,7 @@ export default function Assignments() {
                             <MdDragIndicator className="me-2" />
                             <VscNotebook className="me-2 text-success" />
                             <div>
-                                <Link className="wd-assignment-link text-decoration-none fw-bold text-black" to={`/Kanbas/Courses/Assignments/${assignment._id}`}>
+                                <Link className="wd-assignment-link text-decoration-none fw-bold text-black" to={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
                                     {assignment.title}
                                 </Link>
                                 <div className="small">
