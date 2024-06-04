@@ -1,14 +1,42 @@
-import React from 'react';
-import { Link } from "react-router-dom";
-import { MdSearch, MdCheckCircle, MdDragIndicator, MdMoreVert, MdAdd } from "react-icons/md";
+import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { MdSearch, MdCheckCircle, MdDragIndicator, MdMoreVert, MdAdd, MdDelete } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
 import { VscNotebook } from "react-icons/vsc";
 import { useParams } from "react-router";
-import { assignments } from "../../Database";
+import { useDispatch, useSelector } from "react-redux";
+import { AppState } from "../../../types";
+import { assignments as initialAssignments } from "../../Database";
+import { deleteAssignment } from "./reducer";
 
 export default function Assignments() {
     const { cid } = useParams<{ cid: string }>();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const assignments = useSelector((state: AppState) => state.assignments?.assignments || initialAssignments);
     const courseAssignments = assignments.filter((assignment: { course: string }) => assignment.course === cid);
+
+    const [assignmentToDelete, setAssignmentToDelete] = useState<string | null>(null);
+
+    const handleAddAssignment = () => {
+        navigate(`/Kanbas/Courses/${cid}/Assignments/new`);
+    };
+
+    const handleDeleteAssignment = (id: string) => {
+        setAssignmentToDelete(id);
+    };
+
+    const confirmDeleteAssignment = () => {
+        if (assignmentToDelete) {
+            dispatch(deleteAssignment(assignmentToDelete));
+            setAssignmentToDelete(null);
+        }
+    };
+
+    const cancelDeleteAssignment = () => {
+        setAssignmentToDelete(null);
+    };
 
     return (
         <div id="wd-assignments" className="container mt-4">
@@ -27,7 +55,7 @@ export default function Assignments() {
                     <button className="btn btn-secondary me-2 d-flex align-items-center" id="wd-add-assignment-group">
                         <FaPlus className="me-1" /> Group
                     </button>
-                    <button className="btn btn-danger d-flex align-items-center" id="wd-add-assignment">
+                    <button className="btn btn-danger d-flex align-items-center" id="wd-add-assignment" onClick={handleAddAssignment}>
                         <FaPlus className="me-1" /> Assignment
                     </button>
                 </div>
@@ -54,7 +82,7 @@ export default function Assignments() {
                             <MdDragIndicator className="me-2" />
                             <VscNotebook className="me-2 text-success" />
                             <div>
-                                <Link className="wd-assignment-link text-decoration-none fw-bold text-black" to={`/Kanbas/Courses/Assignments/${assignment._id}`}>
+                                <Link className="wd-assignment-link text-decoration-none fw-bold text-black" to={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
                                     {assignment.title}
                                 </Link>
                                 <div className="small">
@@ -65,12 +93,36 @@ export default function Assignments() {
                             </div>
                         </div>
                         <div className="d-flex align-items-center">
-                            <MdCheckCircle className="text-success" />
-                            <MdMoreVert className="ms-2" />
+                            <MdCheckCircle className="text-success"/>
+                            <button className="btn btn-danger btn-sm ms-2"
+                                    onClick={() => handleDeleteAssignment(assignment._id)}>
+                                <MdDelete/>
+                            </button>
+                            <MdMoreVert className="ms-2"/>
                         </div>
                     </li>
                 ))}
             </ul>
+
+            {assignmentToDelete && (
+                <div className="modal fade show" style={{ display: "block" }} role="dialog">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Confirm Delete</h5>
+                                <button type="button" className="btn-close" onClick={cancelDeleteAssignment}></button>
+                            </div>
+                            <div className="modal-body">
+                                <p>Are you sure you want to delete this assignment?</p>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" onClick={cancelDeleteAssignment}>Cancel</button>
+                                <button type="button" className="btn btn-danger" onClick={confirmDeleteAssignment}>Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

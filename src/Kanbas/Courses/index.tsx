@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import KanbasNavigation from "../Navigation";
 import CoursesNavigation from "./Navigation";
 import Modules from "./Modules";
@@ -7,10 +7,9 @@ import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
 import { Routes, Route, useParams, useLocation } from "react-router";
 import Grades from './Grades';
-import { courses } from "../Database";
 import { FaAlignJustify } from "react-icons/fa6";
 
-export default function Courses() {
+export default function Courses({ courses }: { courses: any[] }) {
     const { pathname } = useLocation();
     const { cid } = useParams<{ cid: string }>();
     const course = courses.find((course) => course._id === cid);
@@ -19,7 +18,7 @@ export default function Courses() {
     return (
         <div id="wd-kanbas" className="h-100">
             <div className="d-flex h-100">
-                <div className="d-none d-md-block bg-black">
+                <div className="d-none d-md-block bg-black" style={{ width: '110px' }}>
                     <KanbasNavigation />
                 </div>
                 <div id="wd-courses" className="flex-fill p-4">
@@ -28,7 +27,7 @@ export default function Courses() {
                         {course && course.name} &gt; {pathname.split("/")[4]}
                     </h2>
                     <div className="d-flex h-100">
-                        <div className="d-none d-md-block bg-black">
+                        <div className="d-none d-md-block bg-black" style={{ width: '110px' }}>
                             <CoursesNavigation links={links} cid={cid || ""} />
                         </div>
                         <div className="flex-fill p-4">
@@ -38,7 +37,7 @@ export default function Courses() {
                                 <Route path="Piazza" element={<h1>Piazza</h1>} />
                                 <Route path="Zoom" element={<h1>Zoom</h1>} />
                                 <Route path="Assignments" element={<Assignments />} />
-                                <Route path="/Courses/Assignments/:id/*" element={<AssignmentEditor />} />
+                                <Route path="Assignments/:id/*" element={<AssignmentEditor />} />
                                 <Route path="Quizzes" element={<h1>Quizzes</h1>} />
                                 <Route path="Grades" element={<Grades />} />
                             </Routes>

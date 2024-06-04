@@ -8,15 +8,14 @@ export default function KanbasNavigation() {
     const { pathname } = useLocation();
     const links = [
         { label: "Dashboard", path: "/Kanbas/Dashboard", icon: AiOutlineDashboard },
-        { label: "Courses", path: "/Kanbas/Dashboard", icon: LiaBookSolid },
+        { label: "Courses", path: "/Kanbas/Courses", icon: LiaBookSolid },
         { label: "Calendar", path: "/Kanbas/Calendar", icon: IoCalendarOutline },
         { label: "Inbox", path: "/Kanbas/Inbox", icon: FaInbox },
         { label: "Labs", path: "/Labs", icon: LiaCogSolid },
     ];
     return (
-        <div id="wd-kanbas-navigation" className="list-group rounded-0">
-            <span style={{ color: "white" }}>{pathname}</span>
-            <a id="wd-account-link" target="_blank"
+        <div id="wd-kanbas-navigation" className="list-group rounded-0" style={{ width: '110px' }}>
+            <a id="wd-account-link" target="_blank" rel="noopener noreferrer"
                href="https://www.northeastern.edu/"
                className="list-group-item bg-black border-0">
                 <img src="/images/NEU.png" width="75px" alt="Northeastern University" />
@@ -27,8 +26,8 @@ export default function KanbasNavigation() {
                 <br />
                 Account
             </Link>
-            {links.map((link) => (
-                <Link key={link.path} to={link.path} className={`list-group-item bg-black text-center border-0
+            {links.map((link, index) => (
+                <Link key={`${link.path}-${index}`} to={link.path} className={`list-group-item bg-black text-center border-0
                       ${pathname.includes(link.label) ? "text-danger bg-white" : "text-white bg-black"}`}>
                     <link.icon className="fs-1 text-danger" />
                     <br />
