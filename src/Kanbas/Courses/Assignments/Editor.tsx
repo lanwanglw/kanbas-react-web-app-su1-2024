@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { addAssignment, updateAssignment } from "./reducer";
+import { addAssignment, updateAssignment as updateAssignmentRedux } from "./reducer";
 import { Assignment, AppState } from "../../../types";
+import { assignments as initialAssignments } from "../../Database";
+import * as client from "./client";
 
 export default function AssignmentEditor() {
     const { cid = "" } = useParams<{ cid?: string }>();
@@ -10,7 +12,7 @@ export default function AssignmentEditor() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const assignments = useSelector((state: AppState) => state.assignments?.assignments || []);
+    const assignments = useSelector((state: AppState) => state.assignmentsReducer?.assignments || initialAssignments);
     const assignmentToEdit = assignments.find((assignment: Assignment) => assignment._id === id);
 
     const [assignment, setAssignment] = useState<Assignment>({
@@ -37,15 +39,25 @@ export default function AssignmentEditor() {
         });
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         if (id === 'new') {
-            const newAssignment = {
-                ...assignment,
-                _id: new Date().getTime().toString(),
-            };
-            dispatch(addAssignment(newAssignment));
+            try {
+                const newAssignment = {
+                    ...assignment,
+                    _id: new Date().getTime().toString(),
+                };
+                const createdAssignment = await client.createAssignment(cid, "module-id-placeholder", newAssignment); // Replace "module-id-placeholder" with actual module ID if needed
+                dispatch(addAssignment(createdAssignment));
+            } catch (error) {
+                console.error("Error creating assignment:", error);
+            }
         } else {
-            dispatch(updateAssignment(assignment));
+            try {
+                await client.updateAssignment(assignment);
+                dispatch(updateAssignmentRedux(assignment));
+            } catch (error) {
+                console.error("Error updating assignment:", error);
+            }
         }
         navigate(`/Kanbas/Courses/${cid}/Assignments`);
     };
@@ -118,7 +130,7 @@ export default function AssignmentEditor() {
                                 id="wd-available-until"
                                 type="datetime-local"
                                 className="form-control"
-                                name="available_until"
+                                name="available_date"
                                 value={assignment.available_date}
                                 onChange={handleChange}
                             />

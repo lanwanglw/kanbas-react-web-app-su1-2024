@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { MdSearch, MdCheckCircle, MdDragIndicator, MdMoreVert, MdAdd, MdDelete } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
@@ -7,14 +7,28 @@ import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../types";
 import { assignments as initialAssignments } from "../../Database";
-import { deleteAssignment } from "./reducer";
+import { setAssignments, deleteAssignment } from "./reducer";
+import * as client from "./client";
 
 export default function Assignments() {
     const { cid } = useParams<{ cid: string }>();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const assignments = useSelector((state: AppState) => state.assignments?.assignments || initialAssignments);
+    const fetchAssignments = useCallback(async () => {
+        const assignments = await client.findAssignmentsForCourse(cid);
+        dispatch(setAssignments(assignments));
+    }, [cid, dispatch]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await fetchAssignments();
+        };
+        fetchData().catch(console.error);
+    }, [fetchAssignments]);
+
+    const assignments = useSelector((state: AppState) => state.assignmentsReducer?.assignments || initialAssignments);
+
     const courseAssignments = assignments.filter((assignment: { course: string }) => assignment.course === cid);
 
     const [assignmentToDelete, setAssignmentToDelete] = useState<string | null>(null);
@@ -23,14 +37,24 @@ export default function Assignments() {
         navigate(`/Kanbas/Courses/${cid}/Assignments/new`);
     };
 
+    const removeAssignment = async (assignmentId: string) => {
+        await client.deleteAssignment(cid, assignmentId);
+        dispatch(deleteAssignment(assignmentId));
+    };
+
     const handleDeleteAssignment = (id: string) => {
         setAssignmentToDelete(id);
     };
 
-    const confirmDeleteAssignment = () => {
+    const confirmDeleteAssignment = async () => {
         if (assignmentToDelete) {
-            dispatch(deleteAssignment(assignmentToDelete));
-            setAssignmentToDelete(null);
+            try {
+                await removeAssignment(assignmentToDelete);
+            } catch (error) {
+                console.error("Error confirming deletion:", error);
+            } finally {
+                setAssignmentToDelete(null);
+            }
         }
     };
 
@@ -94,8 +118,7 @@ export default function Assignments() {
                         </div>
                         <div className="d-flex align-items-center">
                             <MdCheckCircle className="text-success"/>
-                            <button className="btn btn-danger btn-sm ms-2"
-                                    onClick={() => handleDeleteAssignment(assignment._id)}>
+                            <button className="btn btn-danger btn-sm ms-2" onClick={() => handleDeleteAssignment(assignment._id)}>
                                 <MdDelete/>
                             </button>
                             <MdMoreVert className="ms-2"/>
