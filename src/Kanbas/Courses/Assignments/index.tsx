@@ -6,7 +6,6 @@ import { VscNotebook } from "react-icons/vsc";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../types";
-import { assignments as initialAssignments } from "../../Database";
 import { setAssignments, deleteAssignment } from "./reducer";
 import * as client from "./client";
 
@@ -27,9 +26,7 @@ export default function Assignments() {
         fetchData().catch(console.error);
     }, [fetchAssignments]);
 
-    const assignments = useSelector((state: AppState) => state.assignmentsReducer?.assignments || initialAssignments);
-
-    const courseAssignments = assignments.filter((assignment: { course: string }) => assignment.course === cid);
+    const assignments = useSelector((state: AppState) => state.assignmentsReducer?.assignments);
 
     const [assignmentToDelete, setAssignmentToDelete] = useState<string | null>(null);
 
@@ -38,7 +35,7 @@ export default function Assignments() {
     };
 
     const removeAssignment = async (assignmentId: string) => {
-        await client.deleteAssignment(cid, assignmentId);
+        await client.deleteAssignment(assignmentId);
         dispatch(deleteAssignment(assignmentId));
     };
 
@@ -63,7 +60,7 @@ export default function Assignments() {
     };
 
     return (
-        <div id="wd-assignments" className="container mt-4">
+        <div id="wd-assignments" className="container mt-4 h-100">
             <div className="d-flex justify-content-between mb-3">
                 <div className="input-group" style={{ width: "300px" }}>
                     <span className="input-group-text">
@@ -100,7 +97,7 @@ export default function Assignments() {
                 </div>
             </div>
             <ul id="wd-assignment-list" className="list-group">
-                {courseAssignments.map((assignment: { _id: string, title: string, points: number, due_date: string, available_date: string }) => (
+                {assignments && assignments.map((assignment: { _id: string, title: string, points: number, due_date: string, available_date: string }) => (
                     <li key={assignment._id} className="list-group-item d-flex justify-content-between align-items-center" style={{ borderLeft: "4px solid green" }}>
                         <div className="d-flex align-items-center">
                             <MdDragIndicator className="me-2" />

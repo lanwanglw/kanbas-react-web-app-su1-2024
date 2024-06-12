@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { addAssignment, updateAssignment as updateAssignmentRedux } from "./reducer";
 import { Assignment, AppState } from "../../../types";
-import { assignments as initialAssignments } from "../../Database";
 import * as client from "./client";
 
 export default function AssignmentEditor() {
@@ -12,7 +11,7 @@ export default function AssignmentEditor() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const assignments = useSelector((state: AppState) => state.assignmentsReducer?.assignments || initialAssignments);
+    const assignments = useSelector((state: AppState) => state.assignmentsReducer?.assignments);
     const assignmentToEdit = assignments.find((assignment: Assignment) => assignment._id === id);
 
     const [assignment, setAssignment] = useState<Assignment>({
@@ -40,26 +39,28 @@ export default function AssignmentEditor() {
     };
 
     const handleSave = async () => {
-        if (id === 'new') {
-            try {
+        if (!assignment.title || !assignment.description) {
+            alert("Title and description are required.");
+            return;
+        }
+
+        try {
+            if (id === 'new') {
                 const newAssignment = {
                     ...assignment,
                     _id: new Date().getTime().toString(),
                 };
-                const createdAssignment = await client.createAssignment(cid, "module-id-placeholder", newAssignment); // Replace "module-id-placeholder" with actual module ID if needed
+                const createdAssignment = await client.createAssignment(cid, newAssignment);
                 dispatch(addAssignment(createdAssignment));
-            } catch (error) {
-                console.error("Error creating assignment:", error);
-            }
-        } else {
-            try {
+            } else {
                 await client.updateAssignment(assignment);
                 dispatch(updateAssignmentRedux(assignment));
-            } catch (error) {
-                console.error("Error updating assignment:", error);
             }
+            navigate(`/Kanbas/Courses/${cid}/Assignments`);
+        } catch (error: any) {
+            console.error("Error saving assignment:", error.response ? error.response.data : error.message);
+            alert("There was an error saving the assignment. Please try again.");
         }
-        navigate(`/Kanbas/Courses/${cid}/Assignments`);
     };
 
     return (
