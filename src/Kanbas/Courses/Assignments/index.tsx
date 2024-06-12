@@ -14,7 +14,7 @@ export default function Assignments() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const assignments = useSelector((state: AppState) => state.assignments?.assignments || initialAssignments);
+    const assignments = useSelector((state: AppState) => state.assignmentsReducer?.assignments || initialAssignments);
     const courseAssignments = assignments.filter((assignment: { course: string }) => assignment.course === cid);
 
     const [assignmentToDelete, setAssignmentToDelete] = useState<string | null>(null);

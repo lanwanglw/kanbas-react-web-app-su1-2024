@@ -10,7 +10,7 @@ export default function AssignmentEditor() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const assignments = useSelector((state: AppState) => state.assignments?.assignments || []);
+    const assignments = useSelector((state: AppState) => state.assignmentsReducer?.assignments || []);
     const assignmentToEdit = assignments.find((assignment: Assignment) => assignment._id === id);
 
     const [assignment, setAssignment] = useState<Assignment>({

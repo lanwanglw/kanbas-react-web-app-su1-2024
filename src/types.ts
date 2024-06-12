@@ -9,7 +9,7 @@ export interface Assignment {
 }
 
 export interface AppState {
-    assignments: {
+    assignmentsReducer: {
         assignments: Assignment[];
     };
 }
