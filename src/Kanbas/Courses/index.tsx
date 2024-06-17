@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import KanbasNavigation from "../Navigation";
 import CoursesNavigation from "./Navigation";
 import Modules from "./Modules";
@@ -8,12 +8,28 @@ import AssignmentEditor from "./Assignments/Editor";
 import { Routes, Route, useParams, useLocation } from "react-router";
 import Grades from './Grades';
 import { FaAlignJustify } from "react-icons/fa6";
+import { Navigate } from "react-router-dom";
+import PeopleTable from "./People/Table";
+import PeopleDetails from "./People/Details";
+import * as client from "./People/client";
+
 
 export default function Courses({ courses }: { courses: any[] }) {
     const { pathname } = useLocation();
     const { cid } = useParams<{ cid: string }>();
     const course = courses.find((course) => course._id === cid);
-    const links = ["Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades"];
+    const links = ["Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades", "People"];
+
+    const [users, setUsers] = useState<any[]>([]);
+
+    const fetchUsers = async () => {
+        const users = await client.findAllUsers();
+        setUsers(users);
+    };
+
+    useEffect(() => {
+        fetchUsers();
+    }, []);
 
     return (
         <div id="wd-kanbas" className="h-100">
@@ -32,6 +48,7 @@ export default function Courses({ courses }: { courses: any[] }) {
                         </div>
                         <div className="flex-fill p-4">
                             <Routes>
+                                <Route path="/" element={<Navigate to="Home" />} />
                                 <Route path="Home" element={<Home />} />
                                 <Route path="Modules" element={<Modules />} />
                                 <Route path="Piazza" element={<h1>Piazza</h1>} />
@@ -40,6 +57,8 @@ export default function Courses({ courses }: { courses: any[] }) {
                                 <Route path="Assignments/:id/*" element={<AssignmentEditor />} />
                                 <Route path="Quizzes" element={<h1>Quizzes</h1>} />
                                 <Route path="Grades" element={<Grades />} />
+                                <Route path="People" element={<PeopleTable />} />
+                                <Route path="People/:uid" element={<PeopleDetails fetchUsers={fetchUsers}/>} />
                             </Routes>
                         </div>
                     </div>
