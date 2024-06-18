@@ -16,13 +16,13 @@ export default function TOC() {
             <li className="nav-item"><a id="wd-a5" href="#/Labs/Lab5"
                 className={`nav-link ${pathname.includes("Lab5") ? "active" : ""}`}>Lab 5</a></li>
             <li className="nav-item"><a id="wd-k" href="#/Kanbas" className="nav-link">Kanbas</a></li>
-            <li className="nav-item"><a id="wd-github" href="https://github.com/lanwanglw/kanbas-react-web-app-su1-2024.git" target="_blank"
+            <li className="nav-item"><a id="wd-github" href="https://github.com/lanwanglw/kanbas-react-web-app-su1-2024/tree/a6" target="_blank"
                 className="nav-link">My GitHub - React</a></li>
-            <li className="nav-item"><a id="wd-github" href="https://github.com/lanwanglw/kanbas-node-server-app.git" target="_blank"
+            <li className="nav-item"><a id="wd-github" href="https://github.com/lanwanglw/kanbas-node-server-app/tree/a6" target="_blank"
                 className="nav-link">My GitHub - Node Server</a></li>
-            <li className="nav-item"><a id="wd-render" href="https://kanbas-node-server-app-cyd7.onrender.com" target="_blank"
+            <li className="nav-item"><a id="wd-render" href="https://kanbas-node-server-app-a6-wijc.onrender.com/" target="_blank"
                 className="nav-link">Render</a></li>
-            <li className="nav-item"><a id="wd-heroku" href="https://kanbas-node-server-app-su2024-ffd21d484654.herokuapp.com/" target="_blank"
+            <li className="nav-item"><a id="wd-heroku" href="https://kanbas-node-server-app-a6-4d4a7678217f.herokuapp.com/" target="_blank"
                 className="nav-link">Heroku</a></li>
         </ul>
     );
