@@ -1,0 +1,27 @@
+.quiz-details-editor {
+    max-width: 800px;
+    margin: auto;
+}
+
+.quiz-details-editor h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.quiz-details-editor div {
+    margin-bottom: 1rem;
+}
+
+.quiz-details-editor label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.quiz-details-editor .form-control {
+    width: 100%;
+}
+
+.quiz-details-editor .mt-3 button {
+    margin-right: 1rem;
+}

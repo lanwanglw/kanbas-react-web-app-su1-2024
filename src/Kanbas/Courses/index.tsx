@@ -5,14 +5,14 @@ import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
-import { Routes, Route, useParams, useLocation } from "react-router";
+import { Routes, Route, useParams, useLocation, Navigate } from "react-router";
 import Grades from './Grades';
 import { FaAlignJustify } from "react-icons/fa6";
-import { Navigate } from "react-router-dom";
 import PeopleTable from "./People/Table";
 import PeopleDetails from "./People/Details";
 import * as client from "./People/client";
-
+import Quizzes from "./Quizzes";
+import QuizEditor from "./Quizzes/QuizEditor";
 
 export default function Courses({ courses }: { courses: any[] }) {
     const { pathname } = useLocation();
@@ -55,10 +55,11 @@ export default function Courses({ courses }: { courses: any[] }) {
                                 <Route path="Zoom" element={<h1>Zoom</h1>} />
                                 <Route path="Assignments" element={<Assignments />} />
                                 <Route path="Assignments/:id/*" element={<AssignmentEditor />} />
-                                <Route path="Quizzes" element={<h1>Quizzes</h1>} />
                                 <Route path="Grades" element={<Grades />} />
                                 <Route path="People" element={<PeopleTable />} />
                                 <Route path="People/:uid" element={<PeopleDetails fetchUsers={fetchUsers}/>} />
+                                <Route path="Quizzes" element={<Quizzes />} />
+                                <Route path="Quizzes/:quizId" element={<QuizEditor />} />
                             </Routes>
                         </div>
                     </div>
