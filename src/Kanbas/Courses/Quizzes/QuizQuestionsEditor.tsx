@@ -10,6 +10,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface QuizQuestionsEditorProps {
     quizId: string;
+    onSave: (quiz: Quiz) => void;
+    onSaveAndPublish: (quiz: Quiz) => void;
 }
 
 const QuizQuestionsEditor: React.FC<QuizQuestionsEditorProps> = ({ quizId }) => {

@@ -13,6 +13,7 @@ import PeopleDetails from "./People/Details";
 import * as client from "./People/client";
 import Quizzes from "./Quizzes";
 import QuizEditor from "./Quizzes/QuizEditor";
+import QuizPreview from "./Quizzes/QuizPreview";
 
 export default function Courses({ courses }: { courses: any[] }) {
     const { pathname } = useLocation();
@@ -60,6 +61,7 @@ export default function Courses({ courses }: { courses: any[] }) {
                                 <Route path="People/:uid" element={<PeopleDetails fetchUsers={fetchUsers}/>} />
                                 <Route path="Quizzes" element={<Quizzes />} />
                                 <Route path="Quizzes/:quizId" element={<QuizEditor />} />
+                                <Route path="QuizPreview" element={<QuizPreview />} />
                             </Routes>
                         </div>
                     </div>

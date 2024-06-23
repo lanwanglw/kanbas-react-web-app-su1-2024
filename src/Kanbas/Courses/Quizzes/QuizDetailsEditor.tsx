@@ -8,9 +8,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface QuizDetailsEditorProps {
     quizId: string;
+    onSave: (quiz: Quiz) => void;
+    onSaveAndPublish: (quiz: Quiz) => void;
 }
 
-const QuizDetailsEditor: React.FC<QuizDetailsEditorProps> = ({ quizId }) => {
+const QuizDetailsEditor: React.FC<QuizDetailsEditorProps> = ({ quizId, onSave, onSaveAndPublish }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const quiz = useSelector((state: RootState) =>
@@ -44,8 +46,7 @@ const QuizDetailsEditor: React.FC<QuizDetailsEditorProps> = ({ quizId }) => {
 
     const handleSaveAndPublish = () => {
         if (quizDetails) {
-            dispatch(editQuiz({ ...quizDetails, published: true }));
-            navigate(`/Kanbas/Courses/${quizId}/Quizzes`);
+            onSaveAndPublish(quizDetails);
         }
     };
 

@@ -50,3 +50,13 @@ export interface Quiz {
     availableDate?: string;
     untilDate?: string;
 }
+
+export interface QuizAnswer {
+    quizId: number;
+    userId: string;
+    answers: { [key: number]: string };
+    score: number;
+    submittedAt: Date;
+}
+
+
