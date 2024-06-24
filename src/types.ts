@@ -1,3 +1,5 @@
+import {Lesson} from "./Kanbas/Courses/Modules";
+
 export interface Assignment {
     _id: string;
     title: string;
@@ -70,5 +72,14 @@ export interface Course {
     description: string;
     image: string;
     author?: string;
+}
+
+export interface Module {
+    editing: any;
+    _id: string;
+    name: string;
+    description: string;
+    course: string;
+    lessons?: Lesson[];
 }
 
