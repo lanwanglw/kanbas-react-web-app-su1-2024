@@ -10,7 +10,7 @@ export const signin = async (credentials: any) => {
         return response.data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-            console.error("Signin error response: ", error.response); // Log error response
+            console.error("Signin error response: ", error.response);
             if (error.response && error.response.data) {
                 throw new Error(error.response.data.message);
             } else {
@@ -54,5 +54,22 @@ export const signout = async () => {
         return response.data;
     } catch (error: unknown) {
         throw new Error("An unexpected error occurred during signout.");
+    }
+};
+
+export const updateProfile = async (profile: any) => {
+    try {
+        const response = await axiosWithCredentials.put(`${USERS_API}/${profile._id}`, profile);
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            if (error.response && error.response.data) {
+                throw new Error(error.response.data.message);
+            } else {
+                throw new Error("An unexpected error occurred while updating profile.");
+            }
+        } else {
+            throw new Error("An unknown error occurred while updating profile.");
+        }
     }
 };

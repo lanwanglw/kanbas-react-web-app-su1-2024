@@ -27,6 +27,15 @@ export default function Profile() {
         navigate("/Kanbas/Account/Signin");
     };
 
+    const saveProfile = async () => {
+        try {
+            await client.updateProfile(profile);
+            alert("Profile updated successfully");
+        } catch (err: any) {
+            alert("Failed to update profile");
+        }
+    };
+
     return (
         <div className="container mt-4">
             <h1>Profile</h1>
@@ -37,7 +46,7 @@ export default function Profile() {
                             className="form-control"
                             placeholder="Username"
                             value={profile.username}
-                            onChange={(e) => setProfile({ ...profile, username: e.target.value })}
+                            onChange={(e) => setProfile({...profile, username: e.target.value})}
                         />
                     </div>
                     <div className="mb-3">
@@ -45,7 +54,7 @@ export default function Profile() {
                             className="form-control"
                             placeholder="Password"
                             value={profile.password}
-                            onChange={(e) => setProfile({ ...profile, password: e.target.value })}
+                            onChange={(e) => setProfile({...profile, password: e.target.value})}
                         />
                     </div>
                     <div className="mb-3">
@@ -53,7 +62,7 @@ export default function Profile() {
                             className="form-control"
                             placeholder="First Name"
                             value={profile.firstName}
-                            onChange={(e) => setProfile({ ...profile, firstName: e.target.value })}
+                            onChange={(e) => setProfile({...profile, firstName: e.target.value})}
                         />
                     </div>
                     <div className="mb-3">
@@ -61,15 +70,15 @@ export default function Profile() {
                             className="form-control"
                             placeholder="Last Name"
                             value={profile.lastName}
-                            onChange={(e) => setProfile({ ...profile, lastName: e.target.value })}
+                            onChange={(e) => setProfile({...profile, lastName: e.target.value})}
                         />
                     </div>
                     <div className="mb-3">
                         <input
                             className="form-control"
                             placeholder="Date of Birth"
-                            value={profile.dob}
-                            onChange={(e) => setProfile({ ...profile, dob: e.target.value })}
+                            value={profile.dob ? profile.dob.split("T")[0] : ""}
+                            onChange={(e) => setProfile({...profile, dob: e.target.value})}
                             type="date"
                         />
                     </div>
@@ -78,14 +87,14 @@ export default function Profile() {
                             className="form-control"
                             placeholder="Email"
                             value={profile.email}
-                            onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+                            onChange={(e) => setProfile({...profile, email: e.target.value})}
                         />
                     </div>
                     <div className="mb-3">
                         <select
                             className="form-control"
                             value={profile.role}
-                            onChange={(e) => setProfile({ ...profile, role: e.target.value })}
+                            onChange={(e) => setProfile({...profile, role: e.target.value})}
                         >
                             <option value="USER">User</option>
                             <option value="ADMIN">Admin</option>
@@ -93,6 +102,9 @@ export default function Profile() {
                             <option value="STUDENT">Student</option>
                         </select>
                     </div>
+                    <button onClick={saveProfile} className="btn btn-primary w-100 mb-3">
+                        Save
+                    </button>
                     <button onClick={signout} className="btn btn-danger w-100">
                         Signout
                     </button>
