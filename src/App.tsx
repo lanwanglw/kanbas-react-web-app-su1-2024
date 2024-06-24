@@ -5,6 +5,8 @@ import Courses from './Kanbas/Courses';
 import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
 import './index.css';
 import { courses } from "./Kanbas/Database";
+import { Course } from './types';
+
 
 export default function App() {
     return (
@@ -15,7 +17,7 @@ export default function App() {
                         <Route path="/" element={<Navigate to="Labs" />} />
                         <Route path="/Labs/*" element={<Labs />} />
                         <Route path="/Kanbas/*" element={<Kanbas />} />
-                        <Route path="/Kanbas/Courses/:cid/*" element={<Courses courses={courses} />} />
+                        <Route path="/Kanbas/Courses/:cid/*" element={<Courses courses={courses as Course[]} />} />
                     </Routes>
                 </div>
             </div>

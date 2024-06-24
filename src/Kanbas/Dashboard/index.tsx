@@ -1,13 +1,43 @@
-import React from "react";
+import React, {useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import * as courseClient from "../Courses/client";
+import { Course } from "../../types";
 
 export default function Dashboard(
     {  courses, course, setCourse, addNewCourse,
         deleteCourse, updateCourse }: {
-        courses: any[]; course: any; setCourse: (course: any) => void;
-        addNewCourse: () => void; deleteCourse: (course: any) => void;
+        courses: Course[]; course: Course; setCourse: (course: Course) => void;
+        addNewCourse: () => void; deleteCourse: (courseId: string) => void;
         updateCourse: () => void; })
 {
+    const [allCourses, setAllCourses] = useState<Course[]>(courses);
+
+    useEffect(() => {
+        const fetchCourses = async () => {
+            const fetchedCourses = await courseClient.fetchAllCourses();
+            setAllCourses(fetchedCourses);
+        };
+        fetchCourses();
+    }, []);
+
+    const handleAddCourse = async () => {
+        const newCourse = await courseClient.createCourse(course);
+        setAllCourses([...allCourses, newCourse]);
+        addNewCourse();
+    };
+
+    const handleUpdateCourse = async () => {
+        const updatedCourse = await courseClient.updateCourse(course);
+        setAllCourses(allCourses.map(c => c._id === updatedCourse._id ? updatedCourse : c));
+        updateCourse();
+    };
+
+    const handleDeleteCourse = async (courseId: string) => {
+        await courseClient.deleteCourse(courseId);
+        setAllCourses(allCourses.filter(c => c._id !== courseId));
+        deleteCourse(courseId);
+    };
+
     return (
         <div className="p-4" id="wd-dashboard" style={{paddingLeft: "40px"}}>
             <h1 id="wd-dashboard-title">Dashboard</h1>
@@ -15,11 +45,11 @@ export default function Dashboard(
             <h5>New Course
                 <button className="btn btn-primary float-end"
                         id="wd-add-new-course-click"
-                        onClick={addNewCourse}>
+                        onClick={handleAddCourse}>
                     Add
                 </button>
                 <button className="btn btn-warning float-end me-2"
-                        onClick={updateCourse} id="wd-update-course-click">
+                        onClick={handleUpdateCourse} id="wd-update-course-click">
                     Update
                 </button>
             </h5>
@@ -66,7 +96,7 @@ export default function Dashboard(
                                             </button>
                                             <button onClick={(event) => {
                                                 event.preventDefault();
-                                                deleteCourse(course._id);
+                                                handleDeleteCourse(course._id);
                                             }} className="btn btn-danger" id="wd-delete-course-click">
                                                 Delete
                                             </button>

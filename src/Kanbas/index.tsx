@@ -9,23 +9,30 @@ import * as db from "./Database";
 import store from "./store";
 import { Provider } from "react-redux";
 import ProtectedRoute from "./ProtectedRoute";
+import { Course } from '../types';
 
 export default function Kanbas() {
     const [courses, setCourses] = useState<any[]>(db.courses);
-    const [course, setCourse] = useState<any>({
-        _id: "1234", name: "New Course", number: "New Number",
-        startDate: "2023-09-10", endDate: "2023-12-15",
-        image: "/images/reactjs.jpg", description: "New Description"
+    const [course, setCourse] = useState<Course>({
+        _id: "1234",
+        name: "New Course",
+        number: "New Number",
+        startDate: "2023-09-10",
+        endDate: "2023-12-15",
+        department: "Computer Science",
+        credits: 3,
+        image: "/images/reactjs.jpg",
+        description: "New Description"
     });
     const addNewCourse = () => {
         setCourses([...courses, { ...course, _id: new Date().getTime().toString() }]);
     };
-    const deleteCourse = (courseId: any) => {
+    const deleteCourse = (courseId: string) => {
         setCourses(courses.filter((course) => course._id !== courseId));
     };
     const updateCourse = () => {
         setCourses(
-            courses.map((c: any) => {
+            courses.map((c) => {
                 if (c._id === course._id) {
                     return course;
                 } else {

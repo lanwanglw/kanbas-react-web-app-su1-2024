@@ -10,21 +10,25 @@ import Grades from './Grades';
 import { FaAlignJustify } from "react-icons/fa6";
 import PeopleTable from "./People/Table";
 import PeopleDetails from "./People/Details";
-import * as client from "./People/client";
+import * as peopleClient from "./People/client";
 import Quizzes from "./Quizzes";
 import QuizEditor from "./Quizzes/QuizEditor";
 import QuizPreview from "./Quizzes/QuizPreview";
+import { Course } from "../../types";
 
-export default function Courses({ courses }: { courses: any[] }) {
+interface CoursesProps {
+    courses: Course[];
+}
+
+export default function Courses({ courses }: CoursesProps) {
     const { pathname } = useLocation();
     const { cid } = useParams<{ cid: string }>();
+    const [users, setUsers] = useState<any[]>([]);
     const course = courses.find((course) => course._id === cid);
     const links = ["Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades", "People"];
 
-    const [users, setUsers] = useState<any[]>([]);
-
     const fetchUsers = async () => {
-        const users = await client.findAllUsers();
+        const users = await peopleClient.findAllUsers();
         setUsers(users);
     };
 
