@@ -65,6 +65,10 @@ export default function Quizzes() {
         dispatch(publishQuiz(id));
     };
 
+    const handlePreviewQuiz = (id: number) => {
+        navigate(`/Kanbas/Courses/${cid}/Quizzes/${id}/Preview`);
+    };
+
     return (
         <div id="wd-quizzes" className="container mt-4">
             <div className="d-flex justify-content-between mb-3">
@@ -95,7 +99,6 @@ export default function Quizzes() {
                     </h3>
                 </div>
                 <div className="d-flex align-items-center">
-                    <span className="badge bg-secondary me-2">40% of Total</span>
                     <button className="btn btn-outline-secondary d-flex align-items-center">
                         <MdAdd className="me-1" />
                     </button>
@@ -118,21 +121,24 @@ export default function Quizzes() {
                             </div>
                         </div>
                         <div className="d-flex align-items-center">
-                            <MdCheckCircle className={quiz.published ? "text-success" : "text-danger"} />
+                            <MdCheckCircle className={quiz.published ? "text-success" : "text-danger"}/>
                             <button className="btn btn-danger btn-sm ms-2" onClick={() => handleDeleteQuiz(quiz.id)}>
-                                <MdDelete />
+                                <MdDelete/>
                             </button>
                             <button className="btn btn-sm ms-2" onClick={() => handlePublishQuiz(quiz.id)}>
                                 {quiz.published ? '✅' : '🚫'}
                             </button>
-                            <MdMoreVert className="ms-2" />
+                            <button className="btn btn-primary btn-sm ms-2" onClick={() => handlePreviewQuiz(quiz.id)}>
+                                Preview
+                            </button>
+                            <MdMoreVert className="ms-2"/>
                         </div>
                     </li>
                 ))}
             </ul>
 
             {quizToDelete && (
-                <div className="modal fade show" style={{ display: "block" }} role="dialog">
+                <div className="modal fade show" style={{display: "block" }} role="dialog">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">

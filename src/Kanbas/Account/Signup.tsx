@@ -66,8 +66,10 @@ export default function Signup() {
             >
                 <option value="STUDENT">Student</option>
                 <option value="FACULTY">Faculty</option>
+                <option value="ADMIN">Admin</option>
+                <option value="USER">User</option>
             </select>
-            <button onClick={signup} className="btn btn-primary mb-2 signup-button"> Log In </button>
+            <button onClick={signup} className="btn btn-primary mb-2 signup-button"> Log In</button>
             <br/>
             <Link to="/Kanbas/Account/Signin">Sign in</Link>
         </div>

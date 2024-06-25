@@ -23,7 +23,10 @@ const QuizDetailsEditor: React.FC<QuizDetailsEditorProps> = ({ quizId, onSave, o
 
     useEffect(() => {
         if (quiz) {
-            setQuizDetails({ ...quiz });
+            setQuizDetails({
+                ...quiz,
+                timeLimit: quiz.timeLimit ? quiz.timeLimit.toString() : '20', // Ensure timeLimit is a string and set default to '20'
+            });
         }
     }, [quiz]);
 
@@ -46,7 +49,9 @@ const QuizDetailsEditor: React.FC<QuizDetailsEditorProps> = ({ quizId, onSave, o
 
     const handleSaveAndPublish = () => {
         if (quizDetails) {
-            onSaveAndPublish(quizDetails);
+            const updatedQuiz = { ...quizDetails, published: true };
+            onSaveAndPublish(updatedQuiz);
+            navigate(`/Kanbas/Courses/${quizId}/QuizPreview`);
         }
     };
 
@@ -140,6 +145,20 @@ const QuizDetailsEditor: React.FC<QuizDetailsEditorProps> = ({ quizId, onSave, o
                     />
                     <label className="form-check-label" htmlFor="multipleAttempts">Multiple Attempts</label>
                 </div>
+                {quizDetails.multipleAttempts && (
+                    <div className="form-group mb-3">
+                        <label htmlFor="maxAttempts">How Many Attempts</label>
+                        <input
+                            type="number"
+                            name="maxAttempts"
+                            value={quizDetails.maxAttempts}
+                            onChange={handleChange}
+                            className="form-control"
+                            id="maxAttempts"
+                            min={1}
+                        />
+                    </div>
+                )}
                 <div className="mb-3">
                     <label className="form-label">Show Correct Answers</label>
                     <select

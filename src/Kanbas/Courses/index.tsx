@@ -65,7 +65,7 @@ export default function Courses({ courses }: CoursesProps) {
                                 <Route path="People/:uid" element={<PeopleDetails fetchUsers={fetchUsers}/>} />
                                 <Route path="Quizzes" element={<Quizzes />} />
                                 <Route path="Quizzes/:quizId" element={<QuizEditor />} />
-                                <Route path="QuizPreview" element={<QuizPreview />} />
+                                <Route path="Quizzes/:quizId/QuizPreview" element={<QuizPreview />} />
                             </Routes>
                         </div>
                     </div>

@@ -44,6 +44,7 @@ export interface Quiz {
     timeLimit?: string;
     multipleAttempts?: boolean;
     attempts?: number;
+    maxAttempts?: number;
     showCorrectAnswers?: string;
     accessCode?: string;
     oneQuestionAtATime?: boolean;

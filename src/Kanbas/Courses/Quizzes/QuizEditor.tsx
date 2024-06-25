@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import QuizDetailsEditor from './QuizDetailsEditor';
@@ -33,7 +33,7 @@ const QuizEditor: React.FC = () => {
     };
 
     return (
-        <div className="quiz-editor container mt-4">
+        <div id="wd-quizzes-editor" className="quiz-editor container mt-4">
             <ul className="nav nav-tabs">
                 <li className="nav-item">
                     <button

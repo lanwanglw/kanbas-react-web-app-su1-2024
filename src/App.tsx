@@ -6,6 +6,8 @@ import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
 import './index.css';
 import { courses } from "./Kanbas/Database";
 import { Course } from './types';
+import QuizEditor from "./Kanbas/Courses/Quizzes/QuizEditor";
+import QuizPreview from "./Kanbas/Courses/Quizzes/QuizPreview";
 
 
 export default function App() {
@@ -18,6 +20,8 @@ export default function App() {
                         <Route path="/Labs/*" element={<Labs />} />
                         <Route path="/Kanbas/*" element={<Kanbas />} />
                         <Route path="/Kanbas/Courses/:cid/*" element={<Courses courses={courses as Course[]} />} />
+                        <Route path="/Kanbas/Courses/:cid/quizzes/:quizId" element={<QuizEditor />} />
+                        <Route path="/Kanbas/Courses/:cid/quiz-preview" element={<QuizPreview />} />
                     </Routes>
                 </div>
             </div>

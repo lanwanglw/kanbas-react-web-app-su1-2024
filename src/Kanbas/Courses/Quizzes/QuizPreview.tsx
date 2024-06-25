@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Quiz, Question } from '../../../types';
-import { fetchQuiz, submitQuizAnswers } from '../../../api';
+import { fetchQuiz, fetchQuizAnswer, submitQuizAnswers } from './api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const QuizPreview: React.FC = () => {
@@ -9,13 +9,30 @@ const QuizPreview: React.FC = () => {
     const navigate = useNavigate();
     const [quiz, setQuiz] = useState<Quiz | null>(null);
     const [answers, setAnswers] = useState<{ [key: number]: string }>({});
+    const [previousAnswers, setPreviousAnswers] = useState<{ [key: number]: string }>({});
     const [score, setScore] = useState<number | null>(null);
+    const [attempt, setAttempt] = useState<number>(1);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const loadQuiz = async () => {
-            if (quizId) {
-                const fetchedQuiz = await fetchQuiz(Number(quizId));
-                setQuiz(fetchedQuiz);
+            try {
+                if (quizId) {
+                    const fetchedQuiz = await fetchQuiz(Number(quizId));
+                    setQuiz(fetchedQuiz);
+
+                    const userId = 'facultyId'; // Replace with actual user ID
+                    const latestAnswer = await fetchQuizAnswer(Number(quizId), userId);
+                    if (latestAnswer) {
+                        setPreviousAnswers(latestAnswer.answers);
+                        setScore(latestAnswer.score);
+                        setAttempt(latestAnswer.attempt + 1);
+                    }
+                }
+            } catch (error) {
+                console.error("Error fetching quiz:", error);
+            } finally {
+                setLoading(false);
             }
         };
         loadQuiz();
@@ -30,13 +47,23 @@ const QuizPreview: React.FC = () => {
 
     const handleSubmit = async () => {
         if (quiz) {
-            const userId = 'facultyId'; // Replace 'facultyId' with the actual userId
-            const result = await submitQuizAnswers(quiz.id, userId, answers);
+            const userId = 'facultyId'; // Replace with actual user ID
+            const result = await submitQuizAnswers(quiz.id, userId, answers, attempt);
             setScore(result.score);
         }
     };
 
-    if (!quiz) return <div>Loading...</div>;
+    const getAnswerClass = (questionId: number) => {
+        if (previousAnswers[questionId] === undefined) {
+            return '';
+        }
+        return previousAnswers[questionId] === quiz?.questions.find(q => q.id === questionId)?.correctAnswer
+            ? 'text-success'
+            : 'text-danger';
+    };
+
+    if (loading) return <div>Loading...</div>;
+    if (!quiz) return <div>No Quiz Found</div>;
 
     return (
         <div className="container mt-4">
@@ -49,14 +76,14 @@ const QuizPreview: React.FC = () => {
                     {question.type === 'Multiple choice' && question.choices && (
                         <div>
                             {question.choices.map((choice, index) => (
-                                <div className="form-check" key={index}>
+                                <div className={`form-check ${getAnswerClass(question.id)}`} key={index}>
                                     <input
                                         className="form-check-input"
                                         type="radio"
                                         name={`question-${question.id}`}
                                         id={`question-${question.id}-choice-${index}`}
                                         value={choice}
-                                        checked={answers[question.id] === choice}
+                                        checked={answers[question.id] === choice || previousAnswers[question.id] === choice}
                                         onChange={() => handleAnswerChange(question.id, choice)}
                                         disabled={score !== null}
                                     />
@@ -69,27 +96,27 @@ const QuizPreview: React.FC = () => {
                     )}
                     {question.type === 'True/false' && (
                         <div>
-                            <div className="form-check">
+                            <div className={`form-check ${getAnswerClass(question.id)}`}>
                                 <input
                                     className="form-check-input"
                                     type="radio"
                                     name={`question-${question.id}`}
                                     id={`question-${question.id}-true`}
                                     value="true"
-                                    checked={answers[question.id] === 'true'}
+                                    checked={answers[question.id] === 'true' || previousAnswers[question.id] === 'true'}
                                     onChange={() => handleAnswerChange(question.id, 'true')}
                                     disabled={score !== null}
                                 />
                                 <label className="form-check-label" htmlFor={`question-${question.id}-true`}>True</label>
                             </div>
-                            <div className="form-check">
+                            <div className={`form-check ${getAnswerClass(question.id)}`}>
                                 <input
                                     className="form-check-input"
                                     type="radio"
                                     name={`question-${question.id}`}
                                     id={`question-${question.id}-false`}
                                     value="false"
-                                    checked={answers[question.id] === 'false'}
+                                    checked={answers[question.id] === 'false' || previousAnswers[question.id] === 'false'}
                                     onChange={() => handleAnswerChange(question.id, 'false')}
                                     disabled={score !== null}
                                 />
@@ -98,11 +125,11 @@ const QuizPreview: React.FC = () => {
                         </div>
                     )}
                     {question.type === 'Fill in the blank' && (
-                        <div className="form-group">
+                        <div className={`form-group ${getAnswerClass(question.id)}`}>
                             <input
                                 type="text"
                                 className="form-control"
-                                value={answers[question.id] || ''}
+                                value={answers[question.id] || previousAnswers[question.id] || ''}
                                 onChange={(e) => handleAnswerChange(question.id, e.target.value)}
                                 disabled={score !== null}
                             />
