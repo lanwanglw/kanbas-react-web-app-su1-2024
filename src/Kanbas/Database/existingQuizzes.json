@@ -1,0 +1,232 @@
+[
+  {
+    "id": 1,
+    "title": "Q1 - Rocket Propulsion",
+    "description": "Quiz Instructions",
+    "availability": "Not available until <DATE>",
+    "dueDate": "<DATE>",
+    "points": 10,
+    "score": null,
+    "questions": [
+      {
+        "id": 1,
+        "title": "Question 1",
+        "text": "What is the primary purpose of a rocket engine?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Generate thrust", "Control direction", "Reduce weight", "Increase speed"],
+        "correctAnswer": "Generate thrust",
+        "correctAnswerIndex": 0
+      },
+      {
+        "id": 2,
+        "title": "Question 2",
+        "text": "Which of the following is a common propellant used in rocket engines?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Liquid oxygen", "Water", "Carbon dioxide", "Nitrogen"],
+        "correctAnswer": "Liquid oxygen",
+        "correctAnswerIndex": 0
+      },
+      {
+        "id": 3,
+        "title": "Question 3",
+        "text": "What does ISP stand for in rocketry?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Inertial Stability Parameter", "Internal Space Pressure", "Impulse Specific", "Specific Impulse"],
+        "correctAnswer": "Specific Impulse",
+        "correctAnswerIndex": 3
+      },
+      {
+        "id": 4,
+        "title": "Question 4",
+        "text": "Which type of rocket engine uses both liquid fuel and liquid oxidizer?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Solid rocket engine", "Hybrid rocket engine", "Liquid rocket engine", "Ion engine"],
+        "correctAnswer": "Liquid rocket engine",
+        "correctAnswerIndex": 2
+      },
+      {
+        "id": 5,
+        "title": "Question 5",
+        "text": "What is the function of the nozzle in a rocket engine?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Mix the fuel and oxidizer", "Control the flow of exhaust gases", "Ignite the fuel", "Provide structural support"],
+        "correctAnswer": "Control the flow of exhaust gases",
+        "correctAnswerIndex": 1
+      },
+      {
+        "id": 6,
+        "title": "What is a key advantage of using liquid rocket propellants?",
+        "text": "Higher specific impulse",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Ease of storage", "Higher specific impulse", "Lower cost", "Simpler design"],
+        "correctAnswer": "Higher specific impulse",
+        "correctAnswerIndex": 1
+      },
+      {
+        "id": 7,
+        "title": "Question 7",
+        "text": "Which of the following is NOT a type of rocket propellant?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Solid", "Liquid", "Gas", "Hybrid"],
+        "correctAnswer": "Gas",
+        "correctAnswerIndex": 2
+      },
+      {
+        "id": 8,
+        "title": "Question 8",
+        "text": "What does the term 'thrust-to-weight ratio' refer to?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["The efficiency of the rocket engine", "The amount of fuel burned per second", "The ratio of thrust produced to the weight of the rocket", "The maximum speed of the rocket"],
+        "correctAnswer": "The ratio of thrust produced to the weight of the rocket",
+        "correctAnswerIndex": 2
+      },
+      {
+        "id": 9,
+        "title": "Question 9",
+        "text": "What is the main purpose of the oxidizer in a rocket engine?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Increase the temperature", "Reduce the weight", "Provide oxygen for combustion", "Stabilize the fuel"],
+        "correctAnswer": "Provide oxygen for combustion",
+        "correctAnswerIndex": 2
+      },
+      {
+        "id": 10,
+        "title": "Question 10",
+        "text": "Which part of the rocket engine controls the direction of the thrust?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Combustion chamber", "Oxidizer tank", "Fuel pump", "Gimbal"],
+        "correctAnswer": "Gimbal",
+        "correctAnswerIndex": 3
+      }
+    ],
+    "published": true,
+    "timeLimit": "20 minutes",
+    "attempts": 1,
+    "shuffleAnswers": false
+  },
+  {
+    "id": 2,
+    "title": "Q2 - Aerodynamics",
+    "description": "Quiz Instructions",
+    "availability": "Not available until <DATE>",
+    "dueDate": "<DATE>",
+    "points": 10,
+    "score": null,
+    "questions": [
+      {
+        "id": 1,
+        "title": "Question 1",
+        "text": "What is the main purpose of an airfoil?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Generate lift", "Reduce drag", "Increase thrust", "Enhance stability"],
+        "correctAnswer": "Generate lift",
+        "correctAnswerIndex": 0
+      },
+      {
+        "id": 2,
+        "title": "Question 2",
+        "text": "Which of the following forces opposes lift in an aircraft?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Thrust", "Drag", "Gravity", "Momentum"],
+        "correctAnswer": "Gravity",
+        "correctAnswerIndex": 2
+      },
+      {
+        "id": 3,
+        "title": "Question 3",
+        "text": "Bernoulli's principle helps to explain which aerodynamic concept?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Thrust generation", "Drag reduction", "Lift generation", "Weight distribution"],
+        "correctAnswer": "Lift generation",
+        "correctAnswerIndex": 2
+      },
+      {
+        "id": 4,
+        "title": "Question 4",
+        "text": "What happens to air pressure as it flows over the curved upper surface of an airfoil?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["It increases", "It decreases", "It remains the same", "It fluctuates"],
+        "correctAnswer": "It decreases",
+        "correctAnswerIndex": 1
+      },
+      {
+        "id": 5,
+        "title": "Question 5",
+        "text": "The angle of attack is the angle between the chord line of an airfoil and which other reference?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["The horizon", "The longitudinal axis", "The relative wind", "The vertical stabilizer"],
+        "correctAnswer": "The relative wind",
+        "correctAnswerIndex": 2
+      },
+      {
+        "id": 6,
+        "title": "Question 6",
+        "text": "What is the effect of increasing the angle of attack beyond the critical angle?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Increased lift", "Increased drag", "Stall", "Reduced thrust"],
+        "correctAnswer": "Stall",
+        "correctAnswerIndex": 2
+      },
+      {
+        "id": 7,
+        "title": "Question 7",
+        "text": "Which component of an aircraft primarily controls yaw?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Ailerons", "Elevators", "Rudder", "Flaps"],
+        "correctAnswer": "Rudder",
+        "correctAnswerIndex": 2
+      },
+      {
+        "id": 8,
+        "title": "Question 8",
+        "text": "What is the primary purpose of winglets on an aircraft?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Increase lift", "Reduce drag", "Enhance stability", "Increase speed"],
+        "correctAnswer": "Reduce drag",
+        "correctAnswerIndex": 1
+      },
+      {
+        "id": 9,
+        "title": "Question 9",
+        "text": "What is the main effect of drag on an aircraft?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Increase lift", "Decrease speed", "Increase thrust", "Reduce weight"],
+        "correctAnswer": "Decrease speed",
+        "correctAnswerIndex": 1
+      },
+      {
+        "id": 10,
+        "title": "Question 10",
+        "text": "What type of drag is caused by the shape and size of an aircraft?",
+        "type": "Multiple choice",
+        "points": 1,
+        "choices": ["Parasitic drag", "Induced drag", "Form drag", "Wave drag"],
+        "correctAnswer": "Form drag",
+        "correctAnswerIndex": 2
+      }
+    ],
+    "published": true,
+    "timeLimit": "20 minutes",
+    "attempts": 1,
+    "shuffleAnswers": false
+  }
+]

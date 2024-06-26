@@ -7,13 +7,17 @@ import { addQuiz, deleteQuiz, publishQuiz } from './reducer';
 import { RootState } from "../../store";
 import { Quiz } from "../../../types";
 import { useParams } from 'react-router';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import quizzesData from '../../Database/existingQuizzes.json';
 
 export default function Quizzes() {
     const { cid } = useParams<{ cid: string }>();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const quizzes = useSelector((state: RootState) => state.quizzesReducer.quizzes);
+    const quizzesFromStore = useSelector((state: RootState) => state.quizzesReducer.quizzes);
+    const [quizList] = useState<Quiz[]>(quizzesData);
+
     const [quizToDelete, setQuizToDelete] = useState<number | null>(null);
 
     const handleAddQuiz = () => {
@@ -30,7 +34,7 @@ export default function Quizzes() {
             quizType: 'Graded Quiz',  // Default quiz type
             assignmentGroup: 'Quizzes',  // Default assignment group
             shuffleAnswers: true,
-            timeLimit: '20 Minutes',
+            timeLimit: '20 minutes', // Ensure this is a string
             multipleAttempts: false,
             attempts: 1,
             showCorrectAnswers: 'After each attempt',  // Default value
@@ -44,7 +48,6 @@ export default function Quizzes() {
         dispatch(addQuiz(newQuiz));
         navigate(`/Kanbas/Courses/${cid}/Quizzes/${newQuiz.id}`);
     };
-
 
     const handleDeleteQuiz = (id: number) => {
         setQuizToDelete(id);
@@ -66,7 +69,7 @@ export default function Quizzes() {
     };
 
     const handlePreviewQuiz = (id: number) => {
-        navigate(`/Kanbas/Courses/${cid}/Quizzes/${id}/Preview`);
+        navigate(`/Kanbas/Courses/${cid}/Quizzes/${id}/QuizPreview`);
     };
 
     return (
@@ -106,7 +109,7 @@ export default function Quizzes() {
                 </div>
             </div>
             <ul id="wd-quiz-list" className="list-group">
-                {quizzes.map((quiz: Quiz) => (
+                {quizList.concat(quizzesFromStore).map((quiz: Quiz) => (
                     <li key={quiz.id} className="list-group-item d-flex justify-content-between align-items-center" style={{ borderLeft: quiz.published ? "4px solid green" : "4px solid red" }}>
                         <div className="d-flex align-items-center">
                             <MdDragIndicator className="me-2" />

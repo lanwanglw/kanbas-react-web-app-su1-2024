@@ -37,11 +37,11 @@ export interface Quiz {
     points: number;
     questions: Question[];
     published: boolean;
+    timeLimit: string;
     score: number | null;
     quizType?: string;
     assignmentGroup?: string;
     shuffleAnswers?: boolean;
-    timeLimit?: string;
     multipleAttempts?: boolean;
     attempts?: number;
     maxAttempts?: number;
