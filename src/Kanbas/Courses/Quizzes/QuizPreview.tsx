@@ -114,7 +114,7 @@ const QuizPreview: React.FC = () => {
             </div>
             {score !== null && (
                 <div className="alert alert-info mt-4">
-                    <h4>Your Score: {score}</h4>
+                    <h4>Your Score: 1</h4>
                 </div>
             )}
         </div>

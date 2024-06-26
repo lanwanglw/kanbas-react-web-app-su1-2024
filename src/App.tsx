@@ -9,7 +9,6 @@ import { Course } from './types';
 import QuizEditor from "./Kanbas/Courses/Quizzes/QuizEditor";
 import QuizPreview from "./Kanbas/Courses/Quizzes/QuizPreview";
 
-
 export default function App() {
     return (
         <HashRouter>
