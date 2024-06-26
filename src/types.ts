@@ -1,4 +1,4 @@
-import {Lesson} from "./Kanbas/Courses/Modules";
+import { Lesson } from "./Kanbas/Courses/Modules";
 
 export interface Assignment {
     _id: string;
@@ -75,6 +75,20 @@ export interface Course {
     author?: string;
 }
 
+export const courses: Course[] = [
+    {
+        _id: "1234",
+        name: "New Course",
+        number: "New Number",
+        startDate: "2023-09-10",
+        endDate: "2023-12-15",
+        department: "Computer Science",
+        credits: 3,
+        image: "/images/reactjs.jpg",
+        description: "New Description"
+    },
+];
+
 export interface Module {
     editing: any;
     _id: string;
@@ -83,4 +97,3 @@ export interface Module {
     course: string;
     lessons?: Lesson[];
 }
-

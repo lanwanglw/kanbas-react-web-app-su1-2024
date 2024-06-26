@@ -15,7 +15,6 @@ import Quizzes from "./Quizzes";
 import QuizEditor from "./Quizzes/QuizEditor";
 import QuizPreview from "./Quizzes/QuizPreview";
 import QuizQuestionsEditorWrapper from "./Quizzes/QuizQuestionsEditorWrapper";
-import QuizQuestionsEditor from "./Quizzes/QuizQuestionsEditor";
 import { Course } from "../../types";
 
 interface CoursesProps {

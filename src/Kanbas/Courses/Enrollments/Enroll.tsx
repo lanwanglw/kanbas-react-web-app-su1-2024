@@ -39,6 +39,10 @@ export default function Enroll() {
         }
     };
 
+    if (currentUser.role !== 'Student') {
+        return <div>You do not have access to enroll in courses.</div>;
+    }
+
     return (
         <div>
             <h1>Enroll in a Course</h1>
