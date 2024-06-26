@@ -1,16 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { Quiz } from '../../../types';
+import { Quiz, Question } from '../../../types';
 import { editQuiz } from './reducer';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import quizData from '../../Database/quizData.json';
 
 interface QuizDetailsEditorProps {
     quizId: string;
     onSave: (quiz: Quiz) => void;
     onSaveAndPublish: (quiz: Quiz) => void;
 }
+
+const defaultQuiz: Quiz = {
+    id: 0,
+    title: '',
+    description: '',
+    questions: [],
+    published: false,
+    timeLimit: '20',
+    attempts: 1,
+    shuffleAnswers: false,
+    availability: '',
+    dueDate: '',
+    points: 0,
+    score: null,
+    quizType: 'Graded Quiz',
+    assignmentGroup: 'Quizzes',
+    multipleAttempts: false,
+    maxAttempts: 1,
+    showCorrectAnswers: 'Never',
+    accessCode: '',
+    oneQuestionAtATime: false,
+    webcamRequired: false,
+    lockQuestionsAfterAnswering: false,
+    availableDate: '',
+    untilDate: ''
+};
+
+const convertQuestion = (question: any): Question => ({
+    ...question,
+    correctAnswerIndex: question.choices.indexOf(question.correctAnswer)
+});
 
 const QuizDetailsEditor: React.FC<QuizDetailsEditorProps> = ({ quizId, onSave, onSaveAndPublish }) => {
     const dispatch = useDispatch();
@@ -24,11 +56,22 @@ const QuizDetailsEditor: React.FC<QuizDetailsEditorProps> = ({ quizId, onSave, o
     useEffect(() => {
         if (quiz) {
             setQuizDetails({
+                ...defaultQuiz,
                 ...quiz,
-                timeLimit: quiz.timeLimit ? quiz.timeLimit.toString() : '20', // Ensure timeLimit is a string and set default to '20'
+                timeLimit: (quiz.timeLimit || 20).toString(),
+                questions: quiz.questions.map(convertQuestion),
             });
+        } else {
+            if (quizData.id === Number(quizId)) {
+                setQuizDetails({
+                    ...defaultQuiz,
+                    ...quizData,
+                    timeLimit: (quizData.timeLimit || 20).toString(),
+                    questions: quizData.questions.map(convertQuestion),
+                });
+            }
         }
-    }, [quiz]);
+    }, [quiz, quizId]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
@@ -51,7 +94,7 @@ const QuizDetailsEditor: React.FC<QuizDetailsEditorProps> = ({ quizId, onSave, o
         if (quizDetails) {
             const updatedQuiz = { ...quizDetails, published: true };
             onSaveAndPublish(updatedQuiz);
-            navigate(`/Kanbas/Courses/${quizId}/QuizPreview`);
+            navigate(`/Kanbas/Courses/${quizDetails.id}/QuizQuestionsEditor`);
         }
     };
 
