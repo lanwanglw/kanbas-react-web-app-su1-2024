@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import quizData from '../../Database/quizData.json';
 
 const QuizPreview: React.FC = () => {
+    const { quizId } = useParams<{ quizId: string }>();
     const navigate = useNavigate();
     const [quiz] = useState(quizData);
     const [answers, setAnswers] = useState<{ [key: number]: string }>({});
@@ -29,6 +30,9 @@ const QuizPreview: React.FC = () => {
     return (
         <div className="container mt-4">
             <h3>{quiz.title}</h3>
+            <div className="alert alert-warning mt-2" role="alert">
+                This is a preview of the published version of the quiz
+            </div>
             <p>{quiz.description}</p>
             {quiz.questions.map((question) => (
                 <div key={question.id} className="mb-3">
@@ -47,7 +51,8 @@ const QuizPreview: React.FC = () => {
                                         checked={answers[question.id] === choice}
                                         onChange={() => handleAnswerChange(question.id, choice)}
                                     />
-                                    <label className="form-check-label" htmlFor={`question-${question.id}-choice-${index}`}>
+                                    <label className="form-check-label"
+                                           htmlFor={`question-${question.id}-choice-${index}`}>
                                         {choice}
                                     </label>
                                 </div>
@@ -66,7 +71,8 @@ const QuizPreview: React.FC = () => {
                                     checked={answers[question.id] === 'true'}
                                     onChange={() => handleAnswerChange(question.id, 'true')}
                                 />
-                                <label className="form-check-label" htmlFor={`question-${question.id}-true`}>True</label>
+                                <label className="form-check-label"
+                                       htmlFor={`question-${question.id}-true`}>True</label>
                             </div>
                             <div className="form-check">
                                 <input
@@ -78,7 +84,8 @@ const QuizPreview: React.FC = () => {
                                     checked={answers[question.id] === 'false'}
                                     onChange={() => handleAnswerChange(question.id, 'false')}
                                 />
-                                <label className="form-check-label" htmlFor={`question-${question.id}-false`}>False</label>
+                                <label className="form-check-label"
+                                       htmlFor={`question-${question.id}-false`}>False</label>
                             </div>
                         </div>
                     )}
@@ -96,10 +103,13 @@ const QuizPreview: React.FC = () => {
             ))}
             <div className="d-flex justify-content-between mt-4">
                 <button className="btn btn-primary" onClick={handleSubmit}>
-                    Submit
+                    Submit Quiz
                 </button>
-                <button className="btn btn-secondary" onClick={() => navigate(`/Kanbas/Courses/${quiz.id}/QuizQuestionsEditor`)}>
-                    Edit Quiz
+                <button
+                    className="btn btn-secondary"
+                    onClick={() => navigate(`/Kanbas/Courses/${quiz.id}/Quizzes/${quizId}/QuizQuestionsEditor`)}
+                >
+                    Keep Editing This Quiz
                 </button>
             </div>
             {score !== null && (

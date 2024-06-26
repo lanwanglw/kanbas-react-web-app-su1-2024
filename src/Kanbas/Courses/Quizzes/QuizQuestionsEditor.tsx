@@ -14,7 +14,7 @@ interface QuizQuestionsEditorProps {
     onSaveAndPublish: (quiz: Quiz) => void;
 }
 
-const QuizQuestionsEditor: React.FC<QuizQuestionsEditorProps> = ({ quizId }) => {
+const QuizQuestionsEditor: React.FC<QuizQuestionsEditorProps> = ({ quizId, onSave, onSaveAndPublish }) => {
     const dispatch = useDispatch();
     const quiz = useSelector((state: RootState) =>
         state.quizzesReducer.quizzes.find((q: Quiz) => q.id === Number(quizId))
@@ -29,7 +29,7 @@ const QuizQuestionsEditor: React.FC<QuizQuestionsEditorProps> = ({ quizId }) => 
             id: Date.now(),
             title: '',
             text: '',
-            type: 'Multiple choice',
+            type: type,
             points: 1,
             choices: type === 'Multiple choice' ? [''] : [],
             correctAnswerIndex: -1,
@@ -51,6 +51,16 @@ const QuizQuestionsEditor: React.FC<QuizQuestionsEditorProps> = ({ quizId }) => 
         const updatedQuestions = questions.filter(q => q.id !== id);
         setQuestions(updatedQuestions);
         dispatch(deleteQuestion({ quizId: Number(quizId), questionId: id }));
+    };
+
+    const handleSave = () => {
+        const updatedQuiz: Quiz = { ...quiz!, questions };
+        onSave(updatedQuiz);
+    };
+
+    const handleSaveAndPublish = () => {
+        const updatedQuiz: Quiz = { ...quiz!, questions, published: true };
+        onSaveAndPublish(updatedQuiz);
     };
 
     return (
@@ -81,7 +91,8 @@ const QuizQuestionsEditor: React.FC<QuizQuestionsEditorProps> = ({ quizId }) => 
             </ul>
             <div className="d-flex justify-content-end">
                 <button className="btn btn-secondary me-2" onClick={() => setEditingQuestion(null)}>Cancel</button>
-                <button className="btn btn-primary">Save</button>
+                <button className="btn btn-primary me-2" onClick={handleSave}>Save</button>
+                <button className="btn btn-success" onClick={handleSaveAndPublish}>Save and Publish</button>
             </div>
             {editingQuestion && (
                 <div className="mt-4">

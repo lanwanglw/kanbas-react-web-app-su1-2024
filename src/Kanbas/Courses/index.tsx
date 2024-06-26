@@ -14,6 +14,8 @@ import * as peopleClient from "./People/client";
 import Quizzes from "./Quizzes";
 import QuizEditor from "./Quizzes/QuizEditor";
 import QuizPreview from "./Quizzes/QuizPreview";
+import QuizQuestionsEditorWrapper from "./Quizzes/QuizQuestionsEditorWrapper";
+import QuizQuestionsEditor from "./Quizzes/QuizQuestionsEditor";
 import { Course } from "../../types";
 
 interface CoursesProps {
@@ -66,6 +68,7 @@ export default function Courses({ courses }: CoursesProps) {
                                 <Route path="Quizzes" element={<Quizzes />} />
                                 <Route path="Quizzes/:quizId" element={<QuizEditor />} />
                                 <Route path="Quizzes/:quizId/*" element={<QuizPreview />} />
+                                <Route path="Quizzes/:quizId/QuizQuestionsEditor" element={<QuizQuestionsEditorWrapper />} />
                             </Routes>
                         </div>
                     </div>
