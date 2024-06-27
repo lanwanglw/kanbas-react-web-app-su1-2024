@@ -14,6 +14,7 @@ export default function Quizzes() {
     const { cid } = useParams<{ cid: string }>();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const currentUser = useSelector((state: RootState) => state.accountReducer.currentUser);
 
     const quizzesFromStore = useSelector((state: RootState) => state.quizzesReducer.quizzes);
     const [quizList] = useState<Quiz[]>(quizzesData);
@@ -72,6 +73,10 @@ export default function Quizzes() {
         navigate(`/Kanbas/Courses/${cid}/Quizzes/${id}/QuizPreview`);
     };
 
+    const handleTakeQuiz = (quizId: number) => {
+        navigate(`/Kanbas/Courses/${cid}/Quizzes/TakeQuiz/${quizId}`);
+    };
+
     return (
         <div id="wd-quizzes" className="container mt-4">
             <div className="d-flex justify-content-between mb-3">
@@ -85,14 +90,16 @@ export default function Quizzes() {
                         placeholder="Search..."
                     />
                 </div>
-                <div className="d-flex">
-                    <button className="btn btn-secondary me-2 d-flex align-items-center" id="wd-add-quiz-group">
-                        <FaPlus className="me-1" /> Group
-                    </button>
-                    <button className="btn btn-danger d-flex align-items-center" id="wd-add-quiz" onClick={handleAddQuiz}>
-                        <FaPlus className="me-1" /> Quiz
-                    </button>
-                </div>
+                {currentUser?.role === 'FACULTY' && (
+                    <div className="d-flex">
+                        <button className="btn btn-secondary me-2 d-flex align-items-center" id="wd-add-quiz-group">
+                            <FaPlus className="me-1" /> Group
+                        </button>
+                        <button className="btn btn-danger d-flex align-items-center" id="wd-add-quiz" onClick={handleAddQuiz}>
+                            <FaPlus className="me-1" /> Quiz
+                        </button>
+                    </div>
+                )}
             </div>
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <div className="d-flex align-items-center">
@@ -101,12 +108,14 @@ export default function Quizzes() {
                         QUIZZES
                     </h3>
                 </div>
-                <div className="d-flex align-items-center">
-                    <button className="btn btn-outline-secondary d-flex align-items-center">
-                        <MdAdd className="me-1" />
-                    </button>
-                    <MdMoreVert className="ms-2" />
-                </div>
+                {currentUser?.role === 'FACULTY' && (
+                    <div className="d-flex align-items-center">
+                        <button className="btn btn-outline-secondary d-flex align-items-center">
+                            <MdAdd className="me-1" />
+                        </button>
+                        <MdMoreVert className="ms-2" />
+                    </div>
+                )}
             </div>
             <ul id="wd-quiz-list" className="list-group">
                 {quizList.concat(quizzesFromStore).map((quiz: Quiz) => (
@@ -123,19 +132,28 @@ export default function Quizzes() {
                                 <div className="small"><strong>Due</strong> {quiz.dueDate} | {quiz.points} pts | {quiz.questions.length} questions</div>
                             </div>
                         </div>
-                        <div className="d-flex align-items-center">
-                            <MdCheckCircle className={quiz.published ? "text-success" : "text-danger"}/>
-                            <button className="btn btn-danger btn-sm ms-2" onClick={() => handleDeleteQuiz(quiz.id)}>
-                                <MdDelete/>
-                            </button>
-                            <button className="btn btn-sm ms-2" onClick={() => handlePublishQuiz(quiz.id)}>
-                                {quiz.published ? '✅' : '🚫'}
-                            </button>
-                            <button className="btn btn-primary btn-sm ms-2" onClick={() => handlePreviewQuiz(quiz.id)}>
-                                Preview
-                            </button>
-                            <MdMoreVert className="ms-2"/>
-                        </div>
+                        {currentUser?.role === 'FACULTY' && (
+                            <div className="d-flex align-items-center">
+                                <MdCheckCircle className={quiz.published ? "text-success" : "text-danger"}/>
+                                <button className="btn btn-danger btn-sm ms-2" onClick={() => handleDeleteQuiz(quiz.id)}>
+                                    <MdDelete/>
+                                </button>
+                                <button className="btn btn-sm ms-2" onClick={() => handlePublishQuiz(quiz.id)}>
+                                    {quiz.published ? '✅' : '🚫'}
+                                </button>
+                                <button className="btn btn-primary btn-sm ms-2" onClick={() => handlePreviewQuiz(quiz.id)}>
+                                    Preview
+                                </button>
+                                <MdMoreVert className="ms-2"/>
+                            </div>
+                        )}
+                        {currentUser?.role === 'STUDENT' && (
+                            <div className="d-flex align-items-center">
+                                <button className="btn btn-primary btn-sm ms-2" onClick={() => handleTakeQuiz(quiz.id)}>
+                                    Take Quiz
+                                </button>
+                            </div>
+                        )}
                     </li>
                 ))}
             </ul>
@@ -162,3 +180,5 @@ export default function Quizzes() {
         </div>
     );
 }
+
+export {};

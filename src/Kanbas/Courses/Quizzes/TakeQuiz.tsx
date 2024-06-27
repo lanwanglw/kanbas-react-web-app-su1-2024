@@ -52,7 +52,7 @@ const TakeQuiz: React.FC = () => {
             const response = await axios.post(`/api/quizzes/${quizId}/submit`, {
                 userId: currentUser._id,
                 answers,
-                attempt: 1, // Update to track multiple attempts if needed
+                attempt: 1,
             });
             setScore(response.data.score);
         } catch (err) {

@@ -8,6 +8,8 @@ import { courses } from "./Kanbas/Database";
 import { Course } from './types';
 import QuizEditor from "./Kanbas/Courses/Quizzes/QuizEditor";
 import QuizPreview from "./Kanbas/Courses/Quizzes/QuizPreview";
+import StudentQuizzes from "./Kanbas/Courses/Quizzes/StudentQuizzes";
+import TakeQuiz from "./Kanbas/Courses/Quizzes/TakeQuiz";
 
 export default function App() {
     return (
@@ -21,6 +23,8 @@ export default function App() {
                         <Route path="/Kanbas/Courses/:cid/*" element={<Courses courses={courses as Course[]} />} />
                         <Route path="/Kanbas/Courses/:cid/quizzes/:quizId" element={<QuizEditor />} />
                         <Route path="/Kanbas/Courses/:cid/quiz-preview" element={<QuizPreview />} />
+                        <Route path="/Kanbas/Courses/:cid/StudentQuizzes" element={<StudentQuizzes />} />
+                        <Route path="/Kanbas/Courses/:cid/TakeQuiz/:quizzId" element={<TakeQuiz />} />
                     </Routes>
                 </div>
             </div>
